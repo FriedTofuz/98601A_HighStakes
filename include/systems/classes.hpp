@@ -59,6 +59,7 @@ class LadyBrown {
         LadyBrown(pros::Motor ladybrownMotor);
         void nextState();
         void liftControl();
+        void setState(int State);
     private:
         int target = 0;
         double kp = .65;

@@ -300,7 +300,7 @@
     "upload_options": {
       "description": "Type shi",
       "icon": "pizza",
-      "after": "run"
+      "after": "screen"
     },
     "use_early_access": false
   }

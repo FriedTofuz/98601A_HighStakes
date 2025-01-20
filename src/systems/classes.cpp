@@ -106,5 +106,7 @@ void LadyBrown::nextState() {
         }
         target = states[currState];
 }
-
-
+void LadyBrown::setState(int State) {
+    target = states[State];
+    ladybrownMotor.move_absolute(target, 100);
+}

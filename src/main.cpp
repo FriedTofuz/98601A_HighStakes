@@ -8,6 +8,11 @@ void disabled() {} // DO NOT DELETE
 
 void initialize() {
     chassis.calibrate();
+    
+    // Intialize hardware settings
+    ladybrownMotor.set_brake_mode(pros::MotorBrake::hold);
+    ladybrownMotor.set_zero_position(0); 
+
     initialize_display();
 
     //Lambda functions (background functions)
@@ -24,12 +29,6 @@ void initialize() {
     chassis.moveToPoint(0, 24, 3000);
     */
 
-    // Intialize hardware settings
-    stageOneMotor.set_brake_mode(pros::MotorBrake::coast);
-    stageTwoMotor.set_brake_mode(pros::MotorBrake::coast);
-    ladybrownMotor.set_brake_mode(pros::MotorBrake::hold);
-    ladybrownMotor.set_zero_position(0); 
-	Intake.setIntakeSpeed(127);
 
 }
 
@@ -40,6 +39,10 @@ void autonomous() {
 }
 
 void opcontrol() {
+    Intake.setIntakeSpeed(127);
+    leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
+    rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
+
 	while (true) {					 
 		driveControl();
 		intakeControl();

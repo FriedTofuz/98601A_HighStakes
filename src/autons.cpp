@@ -5,7 +5,7 @@
 #include "systems/classes.hpp"
 
 void ringSideBlue() {
-    //code here
+
 }
 
 void ringSideRed() {
