@@ -28,14 +28,16 @@ void initialize() {
     stageOneMotor.set_brake_mode(pros::MotorBrake::coast);
     stageTwoMotor.set_brake_mode(pros::MotorBrake::coast);
     ladybrownMotor.set_brake_mode(pros::MotorBrake::hold);
-    leftMotors.set_brake_mode_all(pros::MotorBrake::brake);
-    rightMotors.set_brake_mode_all(pros::MotorBrake::brake);
     ladybrownMotor.set_zero_position(0); 
 	Intake.setIntakeSpeed(127);
 
 }
 
-void autonomous() {}
+void autonomous() {
+    leftMotors.set_brake_mode_all(pros::MotorBrake::brake);
+    rightMotors.set_brake_mode_all(pros::MotorBrake::brake);
+    runAuton();
+}
 
 void opcontrol() {
 	while (true) {					 

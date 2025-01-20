@@ -1,0 +1,10 @@
+void ringSideBlue();
+void ringSideRed();
+void goalSideBlue();
+void goalSideRed();
+void ringSideBlueAWP();
+void ringSideRedAWP();
+void goalSideRedAWP();
+void goalSideBlueAWP();
+void skills();
+void autonSelector();

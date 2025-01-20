@@ -299,7 +299,8 @@
     },
     "upload_options": {
       "description": "Type shi",
-      "icon": "pizza"
+      "icon": "pizza",
+      "after": "run"
     },
     "use_early_access": false
   }

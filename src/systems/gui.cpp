@@ -8,6 +8,7 @@
 #include "liblvgl/widgets/lv_btnmatrix.h"
 #include <cmath>
 #include <atomic>
+#include "autons.hpp"
 
 static lv_obj_t *auton_sel_screen = nullptr;
 static lv_obj_t *match_sel_screen = nullptr;
@@ -313,4 +314,55 @@ void initialize_display() {
     current_screen = auton_sel_screen;
     
     pros::Task lvgl_task(lvgl_display_task_fn, nullptr, "LVGL Task");
+}
+
+void runAuton() {
+    if (strcmp(auton_sel, "Match Auton") == 0) {
+
+        if (team == nullptr || side == nullptr || wp == nullptr) {
+            return;
+        }
+
+        if (strcmp(team, "Red") == 0) {
+            if (strcmp(side, "Goal Side") == 0) {
+                if (strcmp(wp, "Yes") == 0) {
+                    // RED GOAL SIDE WITH WIN POINT
+                    goalSideRedAWP();
+                } else {
+                    // RED GOAL SIDE NO WIN POINT
+                    goalSideRed();
+                }
+            } else {
+                if (strcmp(wp, "Yes") == 0) {
+                    // RED RING SIDE WITH WIN POINT
+                    ringSideRedAWP();
+                } else {
+                    // RED RING SIDE NO WIN POINT
+                    ringSideRed();
+                }
+            }
+        } else {
+            if (strcmp(side, "Goal Side") == 0) {
+                if (strcmp(wp, "Yes") == 0) {
+                    // BLUE GOAL SIDE WITH WIN POINT
+                    goalSideBlueAWP();
+                } else {
+                    // BLUE GOAL SIDE NO WIN POINT
+                    goalSideBlue();
+                }
+            } else {
+                if (strcmp(wp, "Yes") == 0) {
+                    // BLUE RING SIDE WITH WIN POINT
+                    ringSideBlueAWP();
+                } else {
+                    // BLUE RING SIDE NO WIN POINT
+                    ringSideBlue();
+                }
+            }
+        }
+    } else {
+
+        // SKILLS AUTON
+        skills();
+    }
 }
