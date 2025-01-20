@@ -92,3 +92,19 @@ void MogoMech::release() {
 void MogoMech::toggle() {
     mogomechPiston.toggle();
 }
+
+// Lady Brown 
+LadyBrown::LadyBrown(pros::Motor ladybrownMotor_) 
+    : ladybrownMotor(ladybrownMotor_) {}
+void LadyBrown::liftControl() {
+    ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
+}
+void LadyBrown::nextState() {
+     currState += 1;
+        if (currState == 3) {
+            currState = 0;
+        }
+        target = states[currState];
+}
+
+

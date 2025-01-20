@@ -51,7 +51,19 @@ class MogoMech {
         void toggle();
     private:
         pros::adi::Pneumatics mogomechPiston;
-            bool last_L1_state;
+        bool last_L1_state;
 };
 
+class LadyBrown { 
+    public: 
+        LadyBrown(pros::Motor ladybrownMotor);
+        void nextState();
+        void liftControl();
+    private:
+        int target = 0;
+        double kp = .65;
+        int states[3] = {0, 325, 2000};
+        int currState = 0;
+        pros::Motor ladybrownMotor;
+};
 

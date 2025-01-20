@@ -1,4 +1,5 @@
 #include "pros/misc.h"
+#include "pros/rtos.hpp"
 #include "systems/classes.hpp"
 #include "systems/hardware.hpp"
 
@@ -38,4 +39,12 @@ void doinkerControl() {
     if (Master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
         Doinker.toggle();
     }
+}
+
+// Lady Brown Controls
+void ladybrownControl() { 
+    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) { 
+        LadyBrown.nextState();
+    }
+    pros::delay(200);
 }

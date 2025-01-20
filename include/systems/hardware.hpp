@@ -40,6 +40,7 @@ inline Intake Intake(stageOneMotor, stageTwoMotor, ringColorSensor);
 
 // Lady Brown
 inline pros::Motor ladybrownMotor(12, pros::MotorGears::green, pros::v5::MotorEncoderUnits::counts);
+inline LadyBrown LadyBrown(ladybrownMotor);
 
 // Sensors & Trackers
 inline pros::Imu imu(5);
