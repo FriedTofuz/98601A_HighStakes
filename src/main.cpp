@@ -1,12 +1,14 @@
 #include "main.h"
 #include "systems/classes.hpp"
 #include "systems/hardware.hpp"
+#include "systems/gui.hpp"
+
 
 void disabled() {} // DO NOT DELETE
 
 void initialize() {
     chassis.calibrate();
-    //initialize_display();
+    initialize_display();
 
     //Lambda functions (background functions)
     pros::Task liftControlTask([]{
