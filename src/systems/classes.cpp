@@ -3,6 +3,7 @@
 #include "pros/motors.hpp"
 #include "pros/optical.hpp"
 #include "pros/colors.hpp"
+#include "gui.hpp"
 
 // Intake
 Intake::Intake(pros::Motor stageOneMotor_, pros::Motor stageTwoMotor_, pros::Optical ringColorSensor_) 
@@ -29,29 +30,27 @@ void Intake::stop() {
     stageOneMotor.move(0);
     stageTwoMotor.move(0);
 }
-// void Intake::setSortColor(pros::Color setColor) {
-//     setColor;
-// }
-// void Intake::colorSort(void* param) {
-//     pros::Color oldColor = pros::Color::green;
-//     if ((ringColorSensor.get_hue() > 200 && ringColorSensor.get_hue() < 230) && ringColorSensor.get_proximity() > 25) {
-//         currentRingColor = pros::Color::blue;
-//     }
-//     else if ((ringColorSensor.get_hue() > 350 || ringColorSensor.get_hue() < 20) && ringColorSensor.get_proximity() > 50) {
-//         currentRingColor = pros::Color::red;
-//     }
-//     else {
-//         currentRingColor = pros::Color::green;
-//     };
-//     if (currentRingColor != setColor && oldColor != currentRingColor) {
-//         sortNeeded = true;
-//         oldColor = currentRingColor;
-//     }
-//     else {
-//         sortNeeded = false;
-//     }
-//     oldColor = currentRingColor;
-// }
+bool Intake::discardRing() {
+    std::string color;
+
+    if (ringColorSensor.get_hue() > 340 || ringColorSensor.get_hue() < 20) {
+        color = "Red";
+    } else if (ringColorSensor.get_hue() > 200 && ringColorSensor.get_hue() < 260) {
+        color = "Blue";
+    } else {
+        color = "None";
+    }
+
+    if (color == "None") {
+        return false;
+    }
+
+    if (color == team) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 // Mogo Arm (for goal rush)
 Arm::Arm(pros::adi::Pneumatics armPiston_, pros::adi::Pneumatics armClampPiston_) 

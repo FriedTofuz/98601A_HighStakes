@@ -11,9 +11,7 @@ class Intake {
         void out();
         void stop();
         void setIntakeSpeed(int voltage);
-        void setSortColor(pros::Color setColor);
-        void colorSort(void* param);
-        pros::Color currentRingColor;
+        bool discardRing();
     private: 
         // the Intake class is the only class that will use these things, so it is encapsulated in the class
         pros::Optical ringColorSensor;
@@ -60,4 +58,3 @@ class LadyBrown {
         int currState = 0;
         pros::Motor ladybrownMotor;
 };
-

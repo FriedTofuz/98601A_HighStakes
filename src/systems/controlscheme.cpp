@@ -10,11 +10,6 @@
     Doinker - Right Arrow 
 */
 
-// Drivetrain Controls
-void driveControl() {
-    chassis.arcade(Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), Master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
-}
-
 // Mogo Mech Controls
 void mogoControl() {
     if (Master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {

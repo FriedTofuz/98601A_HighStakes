@@ -32,7 +32,7 @@ inline Arm MogoArm(armPiston, armClampPiston);
 // Intake 
 inline pros::Motor stageOneMotor(15, pros::MotorGears::blue, pros::v5::MotorUnits::rotations);
 inline pros::Motor stageTwoMotor(1, pros::MotorGears::blue, pros::v5::MotorUnits::rotations);
-inline pros::Optical ringColorSensor(7);
+inline pros::Optical ringColorSensor(6);
 inline Intake Intake(stageOneMotor, stageTwoMotor, ringColorSensor);
 
 // Lady Brown
@@ -88,14 +88,14 @@ inline lemlib::ControllerSettings angularController(
 
 // TROTTLE INPUT CURVE
 inline lemlib::ExpoDriveCurve throttleCurve(
-    3,    // joystick deadband out of 127
+    5,    // joystick deadband out of 127
     10,   // minimum output where drivetrain will move out of 127
     1.019 // expo curve gain
 );
 
 // STEER INPUT CURVE
 inline lemlib::ExpoDriveCurve steerCurve(
-    3,    // joystick deadband out of 127
+    5,    // joystick deadband out of 127
     10,   // minimum output where drivetrain will move out of 127
     1.019 // expo curve gain
 );

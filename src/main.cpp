@@ -15,6 +15,8 @@ void initialize() {
     // Intialize hardware settings
     ladybrownMotor.set_brake_mode(pros::MotorBrake::hold);
     ladybrownMotor.set_zero_position(0); 
+    leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
+    rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
 
     //Lambda functions (background functions)
     pros::Task liftControlTask([]{
@@ -44,8 +46,8 @@ void opcontrol() {
     rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
 
 	while (true) {					 
-		driveControl();
-		intakeControl();
+        chassis.arcade(Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), Master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
+        intakeControl();
 		mogoControl();
 		ladybrownControl();
         armControl();
