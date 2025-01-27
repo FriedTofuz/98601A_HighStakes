@@ -19,12 +19,15 @@ void initialize() {
     rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
 
     //Lambda functions (background functions)
-    pros::Task liftControlTask([]{
+    pros::Task backgroundTasks([]{
         while (true) {
             LadyBrown.liftControl();
             pros::delay(10);
+            if (Intake.discardRing()) {
+                Intake.stop();
+            }
+            
         }
-
     });
 
     /*PID Tuning Setup
@@ -51,6 +54,6 @@ void opcontrol() {
 		mogoControl();
 		ladybrownControl();
         armControl();
-		pros::delay(50); // Run for 20 ms then update
+		pros::delay(30); // Run for 30 ms then update
 	}
 }

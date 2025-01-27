@@ -19,6 +19,7 @@ class Intake {
         pros::Motor stageTwoMotor;
         bool sortNeeded;
         int intakeSpeed;
+        std::string color;
 };
 
 class Arm {

@@ -3,4 +3,4 @@
 void initialize_display();
 void runAuton();
 
-static const char * team = nullptr;
+extern const char * team;

@@ -19,7 +19,7 @@ static lv_obj_t *match_btnm = nullptr;
 static lv_obj_t *auton_btnm = nullptr;
 
 static const char * auton_sel = nullptr;
-// static const char * team = nullptr;
+const char * team = nullptr;
 static const char * side = nullptr;
 static const char * wp = nullptr;
 

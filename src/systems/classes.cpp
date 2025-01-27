@@ -4,6 +4,7 @@
 #include "pros/optical.hpp"
 #include "pros/colors.hpp"
 #include "gui.hpp"
+#include <cstring>
 
 // Intake
 Intake::Intake(pros::Motor stageOneMotor_, pros::Motor stageTwoMotor_, pros::Optical ringColorSensor_) 
@@ -31,8 +32,7 @@ void Intake::stop() {
     stageTwoMotor.move(0);
 }
 bool Intake::discardRing() {
-    std::string color;
-
+    ringColorSensor.set_led_pwm(100);
     if (ringColorSensor.get_hue() > 340 || ringColorSensor.get_hue() < 20) {
         color = "Red";
     } else if (ringColorSensor.get_hue() > 200 && ringColorSensor.get_hue() < 260) {
@@ -40,12 +40,16 @@ bool Intake::discardRing() {
     } else {
         color = "None";
     }
+    
+    if (team == nullptr) {
+        return false;
+    }
 
     if (color == "None") {
         return false;
     }
 
-    if (color == team) {
+    if (team == color) {
         return false;
     } else {
         return true;
