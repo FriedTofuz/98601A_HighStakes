@@ -34,10 +34,10 @@ void intakeControl() {
 }
 //Intake.colorSort(NULL);
 
-// Doinker Controls
-void doinkerControl() {
+// Arm Controls
+void armControl() {
     if (Master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
-        Doinker.toggle();
+        armPiston.toggle();
     }
 }
 
@@ -46,5 +46,5 @@ void ladybrownControl() {
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) { 
         LadyBrown.nextState();
     }
-    pros::delay(200);
+    pros::delay(20);
 }

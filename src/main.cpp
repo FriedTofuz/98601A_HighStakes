@@ -1,4 +1,6 @@
 #include "main.h"
+#include "pros/device.hpp"
+#include "pros/rtos.hpp"
 #include "systems/classes.hpp"
 #include "systems/hardware.hpp"
 #include "systems/gui.hpp"
@@ -8,12 +10,11 @@ void disabled() {} // DO NOT DELETE
 
 void initialize() {
     chassis.calibrate();
-    
+    initialize_display();
+
     // Intialize hardware settings
     ladybrownMotor.set_brake_mode(pros::MotorBrake::hold);
     ladybrownMotor.set_zero_position(0); 
-
-    initialize_display();
 
     //Lambda functions (background functions)
     pros::Task liftControlTask([]{
@@ -21,6 +22,7 @@ void initialize() {
             LadyBrown.liftControl();
             pros::delay(10);
         }
+
     });
 
     /*PID Tuning Setup
@@ -28,8 +30,6 @@ void initialize() {
     chassis.turnToHeading(90,3000);
     chassis.moveToPoint(0, 24, 3000);
     */
-
-
 }
 
 void autonomous() {
@@ -47,8 +47,8 @@ void opcontrol() {
 		driveControl();
 		intakeControl();
 		mogoControl();
-		doinkerControl();
 		ladybrownControl();
-		pros::delay(20); // Run for 20 ms then update
+        armControl();
+		pros::delay(50); // Run for 20 ms then update
 	}
 }

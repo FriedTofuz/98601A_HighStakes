@@ -17,20 +17,17 @@ inline pros::Controller Master(pros::E_CONTROLLER_MASTER);
 void driveControl();
 void intakeControl();
 void mogoControl();
-void doinkerControl();
+void armControl();
 void ladybrownControl();
-
-// Doinker
-inline pros::adi::Pneumatics doinkerPiston(2, false);
-inline Doinker Doinker(doinkerPiston);
 
 // Mogo Mech
 inline pros::adi::Pneumatics mogomechPiston(1, false);
 inline MogoMech MogoMech(mogomechPiston);
 
 // Mogo Arm (for goal rush)
-inline pros::adi::Pneumatics mogoarmPiston(3, false);
-inline MogoArm MogoArm(mogoarmPiston);
+inline pros::adi::Pneumatics armPiston(2, false);
+inline pros::adi::Pneumatics armClampPiston(3, false);
+inline Arm MogoArm(armPiston, armClampPiston); 
 
 // Intake 
 inline pros::Motor stageOneMotor(15, pros::MotorGears::blue, pros::v5::MotorUnits::rotations);

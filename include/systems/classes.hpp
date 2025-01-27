@@ -4,16 +4,6 @@
 #include "pros/motors.hpp"
 #include "pros/optical.hpp"
 
-class Doinker {
-    public:
-        Doinker(pros::adi::Pneumatics doinkerPiston);
-        void down();
-        void up();
-        void toggle();
-    private:
-        pros::adi::Pneumatics doinkerPiston;
-};
-
 class Intake {
     public:
         Intake(pros::Motor stageOneMotor, pros::Motor stageTwoMotor, pros::Optical ringColorSensor);
@@ -33,14 +23,17 @@ class Intake {
         int intakeSpeed;
 };
 
-class MogoArm {
+class Arm {
     public:
-        MogoArm(pros::adi::Pneumatics mogoarmPiston);
+        Arm(pros::adi::Pneumatics armPiston, pros::adi::Pneumatics armClampPiston);
         void down();
         void up();
+        void clamp();
+        void release();
         void toggle();
     private:
-        pros::adi::Pneumatics mogoarmPiston;
+        pros::adi::Pneumatics armPiston;
+        pros::adi::Pneumatics armClampPiston;
 };
 
 class MogoMech {

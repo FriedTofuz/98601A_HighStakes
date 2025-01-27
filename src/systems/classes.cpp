@@ -4,20 +4,6 @@
 #include "pros/optical.hpp"
 #include "pros/colors.hpp"
 
-// Doinker
-Doinker::Doinker(pros::adi::Pneumatics doinkerPiston_) 
-    : doinkerPiston(doinkerPiston_) {}
-
-void Doinker::up() {
-    doinkerPiston.retract();
-}
-void Doinker::down() {
-    doinkerPiston.extend();
-}
-void Doinker::toggle() {
-    doinkerPiston.toggle();
-}
-
 // Intake
 Intake::Intake(pros::Motor stageOneMotor_, pros::Motor stageTwoMotor_, pros::Optical ringColorSensor_) 
     : stageOneMotor(stageOneMotor_), stageTwoMotor(stageTwoMotor_), ringColorSensor(ringColorSensor_) {}
@@ -68,16 +54,22 @@ void Intake::stop() {
 // }
 
 // Mogo Arm (for goal rush)
-MogoArm::MogoArm(pros::adi::Pneumatics mogoarmPiston_) 
-    : mogoarmPiston(mogoarmPiston_) {}
-void MogoArm::up() {
-    mogoarmPiston.retract();
+Arm::Arm(pros::adi::Pneumatics armPiston_, pros::adi::Pneumatics armClampPiston_) 
+    : armPiston(armPiston_), armClampPiston(armClampPiston_) {}
+void Arm::up() {
+    armPiston.retract();
 }
-void MogoArm::down() {
-    mogoarmPiston.extend();
+void Arm::down() {
+    armPiston.extend();
 }
-void MogoArm::toggle() {
-    mogoarmPiston.toggle();
+void Arm::clamp() {
+    armClampPiston.extend();
+}
+void Arm::release() {
+    armClampPiston.retract();
+}
+void Arm::toggle() {
+    armPiston.toggle();
 }
 
 // Mogo Mech
