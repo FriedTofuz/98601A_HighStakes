@@ -30,11 +30,11 @@ void initialize() {
         }
     });
 
-    /*PID Tuning Setup
+    //PID Tuning Setup
     chassis.setPose(0,0,0); // coordinates + heading to 0
-    chassis.turnToHeading(90,3000);
+    // chassis.turnToHeading(90,3000);
     chassis.moveToPoint(0, 24, 3000);
-    */
+    
 }
 
 void autonomous() {

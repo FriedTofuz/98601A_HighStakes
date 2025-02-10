@@ -1,4 +1,5 @@
 #include "lemlib/chassis/chassis.hpp"
+#include "lemlib/chassis/trackingWheel.hpp"
 #include "pros/adi.hpp"
 #include "pros/imu.hpp"
 #include "pros/misc.h"
@@ -41,10 +42,10 @@ inline LadyBrown LadyBrown(ladybrownMotor);
 
 // Sensors & Trackers
 inline pros::Imu imu(5);
-inline pros::Rotation verticalTracker(20);                                                    
-inline pros::Rotation horizontalTracker(-18);   
-inline lemlib::TrackingWheel horizontal(&horizontalTracker, lemlib::Omniwheel::NEW_2, -0.5); 
-inline lemlib::TrackingWheel vertical(&verticalTracker, lemlib::Omniwheel::NEW_275, -5.5);
+inline pros::Rotation verticalTracker(-20);                                                    
+inline pros::Rotation horizontalTracker(18);   
+inline lemlib::TrackingWheel horizontal(&horizontalTracker, lemlib::Omniwheel::NEW_275, -.625); 
+inline lemlib::TrackingWheel vertical(&verticalTracker, lemlib::Omniwheel::NEW_275, -3);
 
 // Chassis
 inline pros::MotorGroup leftMotors({-19, -3, 2}, pros::MotorGearset::blue);     // front, top, bottom (left)
@@ -75,10 +76,10 @@ inline lemlib::ControllerSettings linearController(
 
 // ANGULAR PID CONTROLLER
 inline lemlib::ControllerSettings angularController(
-    8,// proportional gain (kP)
-    1,   // integral gain (kI) 2
-    67, // derivative gain (kD) old: 6x
-    .3,   // anti windup
+    5.5,// proportional gain (kP)
+    0,   // integral gain (kI) 2
+    50, // derivative gain (kD) old: 6x
+    0,   // anti windup
     0,    // small error range, in degrees
     0,    // small error range timeout, in milliseconds
     0,    // large error range, in degrees
