@@ -38,8 +38,7 @@ void armControl() {
 
 // Lady Brown Controls
 void ladybrownControl() { 
-    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) { 
+    if (Master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) { 
         LadyBrown.nextState();
     }
-    pros::delay(20);
 }

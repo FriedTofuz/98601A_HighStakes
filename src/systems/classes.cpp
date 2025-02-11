@@ -95,13 +95,12 @@ void LadyBrown::liftControl() {
     ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
 }
 void LadyBrown::nextState() {
-     currState += 1;
+    currState += 1;
         if (currState == 3) {
             currState = 0;
         }
-        target = states[currState];
+    target = states[currState];
 }
 void LadyBrown::setState(int State) {
     target = states[State];
-    ladybrownMotor.move_absolute(target, 100);
 }

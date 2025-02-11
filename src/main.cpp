@@ -24,27 +24,30 @@ void initialize() {
             LadyBrown.liftControl();
             pros::delay(10);
             if (Intake.discardRing()) {
-                Intake.stop();
-            }
-            
-        }
+                pros::delay(100);
+                Intake.setIntakeSpeed(20);
+                pros::delay(300);
+                Intake.setIntakeSpeed(127);
+            }        
+        };
     });
 
     //PID Tuning Setup
-    chassis.setPose(0,0,0); // coordinates + heading to 0
-    // chassis.turnToHeading(90,3000);
-    chassis.moveToPoint(0, 24, 3000);
+    // chassis.setPose(0,0,0); // coordinates + heading to 0
+    // // chassis.turnToHeading(90,3000);
+    // chassis.moveToPoint(0, 24, 3000);
     
 }
 
 void autonomous() {
+    Intake.setIntakeSpeed(127);
     leftMotors.set_brake_mode_all(pros::MotorBrake::brake);
     rightMotors.set_brake_mode_all(pros::MotorBrake::brake);
     runAuton();
 }
 
 void opcontrol() {
-    Intake.setIntakeSpeed(127);
+    Intake.setIntakeSpeed(120);
     leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
     rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
 

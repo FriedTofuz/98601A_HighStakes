@@ -33,7 +33,7 @@ inline Arm MogoArm(armPiston, armClampPiston);
 // Intake 
 inline pros::Motor stageOneMotor(15, pros::MotorGears::blue, pros::v5::MotorUnits::rotations);
 inline pros::Motor stageTwoMotor(1, pros::MotorGears::blue, pros::v5::MotorUnits::rotations);
-inline pros::Optical ringColorSensor(6);
+inline pros::Optical ringColorSensor(13);
 inline Intake Intake(stageOneMotor, stageTwoMotor, ringColorSensor);
 
 // Lady Brown
