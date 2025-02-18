@@ -25,7 +25,7 @@ void initialize() {
             pros::delay(10);
             if (Intake.discardRing()) {
                 pros::delay(100);
-                Intake.setIntakeSpeed(20);
+                Intake.setIntakeSpeed(-20);
                 pros::delay(300);
                 Intake.setIntakeSpeed(127);
             }        
@@ -47,7 +47,7 @@ void autonomous() {
 }
 
 void opcontrol() {
-    Intake.setIntakeSpeed(120);
+    Intake.setIntakeSpeed(127);
     leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
     rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
 
@@ -57,6 +57,6 @@ void opcontrol() {
 		mogoControl();
 		ladybrownControl();
         armControl();
-		pros::delay(30); // Run for 30 ms then update
+		pros::delay(20); // Run for 30 ms then update
 	}
 }
