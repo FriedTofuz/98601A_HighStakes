@@ -24,8 +24,8 @@ void initialize() {
             LadyBrown.liftControl();
             pros::delay(10);
             if (Intake.discardRing()) {
-                pros::delay(100);
-                Intake.setIntakeSpeed(-20);
+                pros::delay(115);
+                Intake.setIntakeSpeed(-10);
                 pros::delay(300);
                 Intake.setIntakeSpeed(127);
             }        

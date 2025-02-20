@@ -43,7 +43,7 @@ void ringSideBlueAWP() {
     // chassis.moveToPoint(-32, -30, 2000);
     chassis.moveToPoint(-37, 10,2000, {.minSpeed=100, .earlyExitRange=10});
     MogoArm.down();
-    chassis.turnToHeading(90, 2000, {.maxSpeed=80, .direction=lemlib::AngularDirection::CW_CLOCKWISE, .earlyExitRange=20});
+    chassis.turnToHeading(90, 2000, {.direction=lemlib::AngularDirection::CW_CLOCKWISE, .maxSpeed=80, .earlyExitRange=20});
     MogoArm.toggle();
     //chassis.moveToPoint(-23, 2, 2000, {.earlyExitRange=8});
     chassis.moveToPoint(10, -20, 2000, {.earlyExitRange=10});
