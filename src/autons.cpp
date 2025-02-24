@@ -22,6 +22,7 @@ void ringSideRed() {
     pros::delay(1000);
     MogoArm.up();
     pros::delay(1000);
+    MogoArm.down();
 }
 
 void goalSideBlue() {
@@ -102,21 +103,27 @@ void goalSideBlueAWP() {
     MogoArm.release();
     Intake.setIntakeSpeed(127);
     Intake.in(true, 0);
-    chassis.moveToPoint(0, 33, 2000, {.earlyExitRange=5},false);
+    chassis.moveToPoint(-2, 33, 2000, {.earlyExitRange=5},false);
     MogoArm.clamp();
-    pros::delay(2000);
-    chassis.moveToPoint(0, 23, 3000, {.forwards=false});
+    chassis.moveToPoint(0, 24, 3000, {.forwards=false}, false);
     MogoArm.release();
     MogoArm.up();
     chassis.moveToPoint(27, 44.75, 2000, {.forwards=false, .maxSpeed=80}, false);
     MogoMech.clamp();
     Intake.in(0, 0);
-    chassis.moveToPoint(29.5, 25.5, 2000);
+    chassis.turnToHeading(-90, 1500, {}, false);
     Intake.stop();
     MogoMech.release();
-    chassis.moveToPoint(-5.25, 40, 2000, {.forwards=false}, false);
+    chassis.moveToPoint(-4, 43, 2000, {.forwards=false}, false);
     MogoMech.clamp();
     Intake.in(false, false);
+    chassis.moveToPose(1, -12, 200, 2000, {}, false);
+    MogoArm.down();
+    chassis.swingToHeading(315, lemlib::DriveSide::RIGHT, 2000, {.maxSpeed=50});
+    chassis.moveToPoint(4, 10, 2000, {}, false);
+    MogoArm.up();
+    LadyBrown.setState(2);   
+    chassis.moveToPoint(15, 42, 2000);
 }
 
 void skills() {
