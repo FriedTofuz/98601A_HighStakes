@@ -103,27 +103,33 @@ void goalSideBlueAWP() {
     MogoArm.release();
     Intake.setIntakeSpeed(127);
     Intake.in(true, 0);
-    chassis.moveToPoint(-2, 33, 2000, {.earlyExitRange=5},false);
+    chassis.moveToPoint(0, 33, 1200, {.earlyExitRange=10},false);
+    chassis.turnToHeading(0, 500);
+    pros::delay(200);
     MogoArm.clamp();
-    chassis.moveToPoint(0, 24, 3000, {.forwards=false}, false);
+    pros::delay(200);
+    chassis.moveToPoint(0, 18, 3000, {.forwards=false}, false);
     MogoArm.release();
     MogoArm.up();
-    chassis.moveToPoint(27, 44.75, 2000, {.forwards=false, .maxSpeed=80}, false);
+    chassis.moveToPoint(28, 44.5, 2000, {.forwards=false, .maxSpeed=80}, false);
     MogoMech.clamp();
     Intake.in(0, 0);
-    chassis.turnToHeading(-90, 1500, {}, false);
-    Intake.stop();
+    pros::delay(300);
+    chassis.turnToHeading(-90, 1000, {.earlyExitRange=20}, false);
     MogoMech.release();
-    chassis.moveToPoint(-4, 43, 2000, {.forwards=false}, false);
+    chassis.moveToPoint(-8, 36, 2000, {.forwards=false, .maxSpeed=80}, false); //second mogo
     MogoMech.clamp();
-    Intake.in(false, false);
-    chassis.moveToPose(1, -12, 200, 2000, {}, false);
+    pros::delay(200);
+    chassis.moveToPoint(14, 0, 1000, {}, false);
+    chassis.swingToHeading(235, lemlib::DriveSide::RIGHT, 1000, {}, false);
     MogoArm.down();
-    chassis.swingToHeading(315, lemlib::DriveSide::RIGHT, 2000, {.maxSpeed=50});
-    chassis.moveToPoint(4, 10, 2000, {}, false);
+    pros::delay(200);
+    chassis.moveToPoint(3.5, -6.5, 1000, {.maxSpeed=80});
+    chassis.turnToHeading(370, 2000, {.maxSpeed=70}, false);
+    chassis.moveToPoint(7, 20, 1500, {.minSpeed=100, .earlyExitRange=15});
+    chassis.moveToPoint(34.25, 43, 2000, {}, false);
     MogoArm.up();
-    LadyBrown.setState(2);   
-    chassis.moveToPoint(15, 42, 2000);
+
 }
 
 void skills() {
