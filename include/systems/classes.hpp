@@ -12,8 +12,14 @@ class Intake {
         void stop();
         void setIntakeSpeed(int voltage);
         bool discardRing();
+        bool allowed;
     private: 
         // the Intake class is the only class that will use these things, so it is encapsulated in the class
+        static void intakeTaskFn(void* param);
+        std::unique_ptr<pros::Task> intakeTask;
+        bool stageOne = false;
+        bool stageTwo = false;
+        bool intakeRunning = false;
         pros::Optical ringColorSensor;
         pros::Motor stageOneMotor;
         pros::Motor stageTwoMotor;

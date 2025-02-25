@@ -28,7 +28,9 @@ void initialize() {
                 Intake.setIntakeSpeed(-10);
                 pros::delay(300);
                 Intake.setIntakeSpeed(127);
-            }        
+                std::cout << "Detecting:" << ringColorSensor.get_proximity()<< std::endl;
+            std::cout << "Detecting:" << ringColorSensor.get_proximity() << std::endl;
+            }
         };
     });
 
