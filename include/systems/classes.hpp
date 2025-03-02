@@ -12,6 +12,7 @@ class Intake {
         void stop();
         void setIntakeSpeed(int voltage);
         bool discardRing();
+        bool allowed;
     private: 
         // the Intake class is the only class that will use these things, so it is encapsulated in the class
         pros::Optical ringColorSensor;

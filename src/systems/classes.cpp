@@ -20,6 +20,7 @@ void Intake::in(bool stageOneOnly, bool stageTwoOnly) {
         stageTwoMotor.move(intakeSpeed);
     }
 }
+
 void Intake::out() {
     stageOneMotor.move(-intakeSpeed);
     stageTwoMotor.move(-intakeSpeed);
@@ -28,11 +29,16 @@ void Intake::setIntakeSpeed(int voltage) {
     intakeSpeed = voltage;
 }
 void Intake::stop() {
-    stageOneMotor.move(0);
-    stageTwoMotor.move(0);
+        stageOneMotor.move(0);
+        stageTwoMotor.move(0);
 }
 bool Intake::discardRing() {
     ringColorSensor.set_led_pwm(100);
+
+    if (ringColorSensor.get_proximity() < 150) {
+        return false;
+    }
+
     if (ringColorSensor.get_hue() > 340 || ringColorSensor.get_hue() < 20) {
         color = "Red";
     } else if (ringColorSensor.get_hue() > 200 && ringColorSensor.get_hue() < 260) {

@@ -20,10 +20,13 @@ void mogoControl() {
 // Intake Controls
 void intakeControl() {
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+        Intake.allowed = true;
         Intake.in(false, false);
     } else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+        Intake.allowed = true;
         Intake.out();
     } else {
+        Intake.allowed = false;
         Intake.stop();
     }
 }

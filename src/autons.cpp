@@ -9,12 +9,8 @@
 void ringSideBlue() {
     //code here
     Intake.allowed = true;
+    Intake.in(false, false);
 
-    Intake.in(false, false);
-    pros::delay(500);
-    Intake.stop();
-    pros::delay(500);
-    Intake.in(false, false);
 }
 
 void ringSideRed() {
@@ -135,10 +131,9 @@ void goalSideBlueAWP() {
 void skills() {
     Intake.allowed = true;
 
-    // chassis.setPose(0,0,0);
-    // Intake.setIntakeSpeed(127);
-    // MogoMech.release();
-    // Intake.setIntakeSpeed(127);
+    chassis.setPose(0,0,0);
+    Intake.setIntakeSpeed(127);
+    MogoMech.release();
     // Intake.in(false, false);
     // pros::delay(1000);
     // Intake.stop();

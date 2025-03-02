@@ -21,14 +21,15 @@ void initialize() {
     //Lambda functions (background functions)
     pros::Task backgroundTasks([]{
         while (true) {
+            // std::cout << Intake.allowed << std::endl;
             LadyBrown.liftControl();
             pros::delay(10);
-            if (Intake.discardRing()) {
+            if (Intake.discardRing() && Intake.allowed) {
                 pros::delay(115);
                 Intake.setIntakeSpeed(-10);
                 pros::delay(300);
                 Intake.setIntakeSpeed(127);
-            }        
+            }
         };
     });
 
