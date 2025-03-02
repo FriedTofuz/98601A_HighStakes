@@ -135,7 +135,7 @@ static void event_handler(lv_event_t * e) {
 
         if(strcmp(txt, "Skills Auton") == 0) {
             auton_sel = "Skills Auton";
-            team = "N/A";
+            team = "Red";
             side = "N/A";
             wp = "N/A";
             create_confirmation_screen();

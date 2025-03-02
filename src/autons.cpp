@@ -130,16 +130,43 @@ void goalSideBlueAWP() {
 
 void skills() {
     Intake.allowed = true;
-
-    chassis.setPose(0,0,0);
+    chassis.setPose(-11.5,-1.5,51);
     Intake.setIntakeSpeed(127);
+    LadyBrown.setState(2);
+    pros::delay(1000);
+    chassis.moveToPoint(-26, -16, 2000, {.forwards=false, .maxSpeed=65}, false);
+    MogoMech.clamp();
+    pros::delay(500);
+    Intake.in(false, false);
+    LadyBrown.setState(0);
+    chassis.turnToHeading(170,1000); //face 1st ring
+    chassis.moveToPoint(-28,-26,2000); //move to first ring, eat first ring
+    chassis.turnToHeading(200,2000); // turn to far quadrant ring (right)
+    chassis.moveToPoint(-43.5,-76,2000); // move to far quadrant ring (right)
+    chassis.turnToHeading(360,2000); // turn to face 3rd ring
+    chassis.moveToPoint(-37.2,-62,2000); // go toward the thing
+    LadyBrown.setState(1); 
+    chassis.turnToHeading(265,2000);
+    chassis.moveToPoint(-55,-56.5,2000, {}, false);
+    pros::delay(1500);
+    Intake.setIntakeSpeed(-127);
+    pros::delay(100);
+    LadyBrown.setState(2); // put down lady brown on wall
+    pros::delay(1000);
+    Intake.setIntakeSpeed(127);
+    pros::delay(500);
+    chassis.moveToPoint(-43.5,-54,2000, {.forwards=false}); //move back out after wall
+    LadyBrown.setState(0);
+    chassis.turnToHeading(352,2000); //turn to face 3 rings in a row
+    chassis.moveToPoint(-47,-2,5000, {.maxSpeed=55}); //move forward to eat 3 rings in a row
+    chassis.swingToHeading(248,lemlib::DriveSide::RIGHT,2000);
+    chassis.moveToPoint(-59,-8,2000);
+    chassis.turnToHeading(165,2000);
+    chassis.moveToPoint(-67,-2,2000, {.forwards=false}, false);
     MogoMech.release();
-    // Intake.in(false, false);
-    // pros::delay(1000);
-    // Intake.stop();
-    // chassis.moveToPoint(float x, float y, int timeout);
-    // chassis.turnToHeading(-90, 1000);
-    // chassis.moveToPoint(float x, float y, int timeout, {.forward=false});
+
+    //chassis.turnToHeading(-90, 1000);
+    //chassis.moveToPoint(float x, float y, int timeout, {.forward=false});
     // MogoMech.clamp();
     // pros::delay(300);
     // chassis.turnToHeading(0, 1000);
