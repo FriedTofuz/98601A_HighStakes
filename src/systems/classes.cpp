@@ -37,10 +37,9 @@ void Intake::intakeTaskFn(void* param) {
             }
         } else {
             if (self->allowed == 0) {
-                std::cout << "Intake not allowed" << std::endl;
                 self->setIntakeSpeed(-127);
-                self->stageOneMotor.move(-127);
-                self->stageTwoMotor.move(-127);
+                self->stageOneMotor.move_relative(1, -127);
+                self->stageTwoMotor.move_relative(1, -127);
             } else {
                 self->setIntakeSpeed(0);
                 self->stageOneMotor.move(0);
