@@ -17,6 +17,8 @@ void initialize() {
     ladybrownMotor.set_zero_position(0); 
     leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
     rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
+    Intake.allowed = true;
+    LadyBrown.currState = 0;
 
     //Lambda functions (background functions)
     pros::Task backgroundTasks([]{
@@ -24,13 +26,11 @@ void initialize() {
             // std::cout << Intake.allowed << std::endl;
             LadyBrown.liftControl();
             pros::delay(10);
-            if (Intake.discardRing() && Intake.allowed) {
-                pros::delay(115);
-                Intake.setIntakeSpeed(-10);
+            if (Intake.discardRing() && LadyBrown.currState != 1) {
+                pros::delay(145);
+                Intake.allowed = false;
                 pros::delay(300);
-                Intake.setIntakeSpeed(127);
-                std::cout << "Detecting:" << ringColorSensor.get_proximity()<< std::endl;
-            std::cout << "Detecting:" << ringColorSensor.get_proximity() << std::endl;
+                Intake.allowed = true;
             }
         };
     });

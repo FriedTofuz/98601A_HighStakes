@@ -141,7 +141,7 @@ void skills() {
     LadyBrown.setState(0);
     chassis.turnToHeading(170,1000); //face 1st ring
     chassis.moveToPoint(-28,-26,2000); //move to first ring, eat first ring
-    chassis.turnToHeading(200,2000); // turn to far quadrant ring (right)
+    chassis.turnToHeading(210,2000); // turn to far quadrant ring (right)
     chassis.moveToPoint(-43.5,-76,2000); // move to far quadrant ring (right)
     chassis.turnToHeading(360,2000); // turn to face 3rd ring
     chassis.moveToPoint(-37.2,-62,2000); // go toward the thing
@@ -150,7 +150,7 @@ void skills() {
     chassis.moveToPoint(-55,-56.5,2000, {}, false);
     pros::delay(1500);
     Intake.setIntakeSpeed(-127);
-    pros::delay(100);
+    pros::delay(30);
     LadyBrown.setState(2); // put down lady brown on wall
     pros::delay(1000);
     Intake.setIntakeSpeed(127);

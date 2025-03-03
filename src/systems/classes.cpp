@@ -1,9 +1,13 @@
 #include "systems/classes.hpp"
+#include "liblvgl/core/lv_obj_draw.h"
+#include "systems/hardware.hpp"
 #include "pros/adi.hpp"
 #include "pros/motors.hpp"
 #include "pros/optical.hpp"
 #include "pros/colors.hpp"
 #include "gui.hpp"
+#include "pros/rtos.hpp"
+#include <cstdlib>
 #include <cstring>
 
 // Intake
@@ -13,11 +17,14 @@ Intake::Intake(pros::Motor stageOneMotor_, pros::Motor stageTwoMotor_, pros::Opt
     intakeTask = std::make_unique<pros::Task>(intakeTaskFn, this, "Intake Task");
 }
 
+int LadyBrown::currState = 0;
+
 void Intake::intakeTaskFn(void* param) {
     Intake* self = static_cast<Intake*>(param);
 
+    pros::delay(3000);
     while (true) {
-        if (self->intakeRunning) {
+        if (self->intakeRunning && self->allowed) {
             if (self->stageOne) {
                 self->stageOneMotor.move(self->intakeSpeed);
                 self->stageTwoMotor.move(0);
@@ -29,8 +36,16 @@ void Intake::intakeTaskFn(void* param) {
                 self->stageTwoMotor.move(self->intakeSpeed);
             }
         } else {
-            self->stageOneMotor.move(0);
-            self->stageTwoMotor.move(0);
+            if (self->allowed == 0) {
+                std::cout << "Intake not allowed" << std::endl;
+                self->setIntakeSpeed(-127);
+                self->stageOneMotor.move(-127);
+                self->stageTwoMotor.move(-127);
+            } else {
+                self->setIntakeSpeed(0);
+                self->stageOneMotor.move(0);
+                self->stageTwoMotor.move(0);
+            }
         }
         pros::delay(10);
     }
@@ -67,10 +82,11 @@ void Intake::setIntakeSpeed(int voltage) {
 void Intake::stop() {
     intakeRunning = false;
 }
+
 bool Intake::discardRing() {
     ringColorSensor.set_led_pwm(100);
 
-    if (ringColorSensor.get_proximity() < 150) {
+    if (ringColorSensor.get_proximity() < 180) {
         return false;
     }
 
@@ -133,13 +149,26 @@ void MogoMech::toggle() {
 LadyBrown::LadyBrown(pros::Motor ladybrownMotor_) 
     : ladybrownMotor(ladybrownMotor_) {}
 void LadyBrown::liftControl() {
-    ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
+    if (moveIntake) {
+        Intake.out();
+        ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
+        pros::delay(500);
+        Intake.stop();
+        moveIntake = false;
+    } else {
+        ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
+    }
 }
 void LadyBrown::nextState() {
     currState += 1;
-        if (currState == 3) {
+
+    if (currState == 2) {
+        moveIntake = true;
+    }
+
+    if (currState == 3) {
             currState = 0;
-        }
+    }
     target = states[currState];
 }
 void LadyBrown::setState(int State) {
