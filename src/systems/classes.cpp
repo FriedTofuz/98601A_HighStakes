@@ -48,9 +48,9 @@ void Intake::intakeTaskFn(void* param) {
             }
         }
 
-        if (self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1) {
-            pros::delay(500);
-            if (self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1) {
+        if (self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1 && self->stageTwo == true) {
+            pros::delay(300);
+            if (self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1 && self->stageTwo == true) {
                 self->intakeRunning = false;
                 self->stageTwoMotor.move(-127);
                 pros::delay(100);
@@ -75,8 +75,8 @@ void Intake::in(bool stageOneOnly, bool stageTwoOnly) {
     // pros::delay(10);
 
     intakeSpeed = 127;
-    stageOneOnly = stageOne;
-    stageTwoOnly = stageTwo;
+    stageOne = stageOneOnly;
+    stageTwo =stageTwoOnly;
     intakeRunning = true; 
 }
 

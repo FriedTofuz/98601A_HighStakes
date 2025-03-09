@@ -60,9 +60,35 @@ void ringSideRed() {
     chassis.moveToPoint(-35, -3, 2500, {.maxSpeed=65});
 }
 
+//DONE
 void goalSideBlue() {
-    //code here
     Intake.allowed = true;
+    Intake.stop();
+    chassis.setPose(.3,0,0);
+    MogoMech.release();
+    Intake.setIntakeSpeed(127);
+    Intake.in(1, 0);
+    chassis.moveToPoint(0, 32.5, 800, {.minSpeed=110},false);
+    MogoArm.down();
+    chassis.moveToPoint(0, 18, 3000, {.forwards=false}, false);
+    MogoArm.up();
+    pros::delay(400);
+    chassis.moveToPoint(28, 45, 2000, {.forwards=false, .maxSpeed=80}, false);
+    MogoMech.clamp();
+    pros::delay(500);
+    Intake.in(0, 0);
+    chassis.turnToHeading(-90, 1000, {.earlyExitRange=20}, false);
+    MogoMech.release();
+    chassis.moveToPoint(-11, 36, 2000, {.forwards=false, .maxSpeed=70}, false); //second mogo
+    MogoMech.clamp();
+    pros::delay(300);
+    chassis.moveToPoint(22, 13, 1200, {.minSpeed=110, .earlyExitRange=10});
+    chassis.turnToHeading(235, 700, {}, false);
+    MogoArm.down();
+    chassis.moveToPoint(8, -6.5, 1800, {}, false);
+    chassis.turnToHeading(320, 2000, {.maxSpeed=70}, false);
+    chassis.moveToPoint(0, 24, 1500, {.minSpeed=100, .earlyExitRange=15});
+    MogoArm.up();
 }
 
 void goalSideRed() {
@@ -133,36 +159,35 @@ void goalSideRedAWP() {
     Intake.allowed = true;
 }
 
-void goalSideBlueAWP() {
+//DONE
+void goalSideBlueAWP() { 
     Intake.allowed = true;
     Intake.stop();
     chassis.setPose(.3,0,0);
     MogoMech.release();
     Intake.setIntakeSpeed(127);
-    stageOneMotor.move(127);
-    chassis.moveToPoint(0, 34, 800, {.earlyExitRange=10},false);
-    //stop editing here
+    Intake.in(1, 0);
+    chassis.moveToPoint(0, 32.5, 800, {.minSpeed=110},false);
     MogoArm.down();
     chassis.moveToPoint(0, 18, 3000, {.forwards=false}, false);
     MogoArm.up();
     pros::delay(400);
-    chassis.moveToPoint(28, 46, 2000, {.forwards=false, .maxSpeed=80}, false);
+    chassis.moveToPoint(28, 45, 2000, {.forwards=false, .maxSpeed=80}, false);
     MogoMech.clamp();
+    pros::delay(500);
     Intake.in(0, 0);
-    pros::delay(300);
     chassis.turnToHeading(-90, 1000, {.earlyExitRange=20}, false);
     MogoMech.release();
-    chassis.moveToPoint(-8, 36, 2000, {.forwards=false, .maxSpeed=80}, false); //second mogo
+    chassis.moveToPoint(-11, 36, 2000, {.forwards=false, .maxSpeed=70}, false); //second mogo
     MogoMech.clamp();
-    pros::delay(200);
-    chassis.moveToPoint(22, 5, 1500, {}, false);
-    chassis.swingToHeading(235, lemlib::DriveSide::RIGHT, 1000, {}, false);
+    pros::delay(300);
+    chassis.moveToPoint(22, 13, 1200, {.minSpeed=110, .earlyExitRange=10});
+    chassis.turnToHeading(235, 700, {}, false);
     MogoArm.down();
-    pros::delay(200);
-    chassis.moveToPoint(3.5, 0, 1000, {.maxSpeed=80});
-    chassis.turnToHeading(370, 2000, {.maxSpeed=70}, false);
-    chassis.moveToPoint(7, 20, 1500, {.minSpeed=100, .earlyExitRange=15});
-    chassis.moveToPoint(34.25, 43, 2000, {}, false);
+    chassis.moveToPoint(8, -6.5, 1800, {}, false);
+    chassis.turnToHeading(320, 2000, {.maxSpeed=70}, false);
+    chassis.moveToPoint(0, 24, 1500, {.minSpeed=100, .earlyExitRange=15});
+    chassis.moveToPoint(34.25, 45, 2000, {}, false);
     MogoArm.up();
 
 }
