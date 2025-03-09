@@ -22,16 +22,30 @@ void initialize() {
 
     //Lambda functions (background functions)
     pros::Task backgroundTasks([]{
+        float old;
+        float delay;
+        Intake.discarding = false;
         while (true) {
-            // std::cout << Intake.allowed << std::endl;
             LadyBrown.liftControl();
             pros::delay(10);
             if (Intake.discardRing() && LadyBrown.currState != 1) {
-                pros::delay(145);
-                Intake.allowed = false;
-                pros::delay(300);
-                Intake.allowed = true;
+                if (!Intake.discarding) {
+                    old = stageTwoMotor.get_position();
+                    delay = 0.7;
+                    Intake.discarding = true;
+                }
             }
+
+            if (Intake.discarding) {
+                if (stageTwoMotor.get_position() - old > delay) {
+                    Intake.allowed = false;
+                    pros::delay(300);
+                    Intake.allowed = true;
+                    Intake.discarding = false;
+                }
+            }
+
+            std::cout << ladybrownMotor.get_position() << std::endl;
         };
     });
 

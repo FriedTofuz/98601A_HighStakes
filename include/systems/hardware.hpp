@@ -20,6 +20,7 @@ void intakeControl();
 void mogoControl();
 void armControl();
 void ladybrownControl();
+void testControl();
 
 // Mogo Mech
 inline pros::adi::Pneumatics mogomechPiston(1, false);
@@ -89,14 +90,14 @@ inline lemlib::ControllerSettings angularController(
 
 // TROTTLE INPUT CURVE
 inline lemlib::ExpoDriveCurve throttleCurve(
-    5,    // joystick deadband out of 127
+    10,    // joystick deadband out of 127
     10,   // minimum output where drivetrain will move out of 127
     1.02 // expo curve gain
 );
 
 // STEER INPUT CURVE
 inline lemlib::ExpoDriveCurve steerCurve(
-    5,    // joystick deadband out of 127
+    10,    // joystick deadband out of 127
     10,   // minimum output where drivetrain will move out of 127
     1.029 // expo curve gain
 );

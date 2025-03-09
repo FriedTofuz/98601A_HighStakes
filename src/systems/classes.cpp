@@ -37,15 +37,27 @@ void Intake::intakeTaskFn(void* param) {
             }
         } else {
             if (self->allowed == 0) {
-                self->setIntakeSpeed(-127);
-                self->stageOneMotor.move_relative(1, -127);
-                self->stageTwoMotor.move_relative(1, -127);
+                // self->setIntakeSpeed(-127);
+                // self->stageOneMotor.move(-127);
+                // self->stageTwoMotor.move(-127);
+                self->stageTwoMotor.move(0);
             } else {
                 self->setIntakeSpeed(0);
                 self->stageOneMotor.move(0);
                 self->stageTwoMotor.move(0);
             }
         }
+
+        if (self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1) {
+            pros::delay(500);
+            if (self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1) {
+                self->intakeRunning = false;
+                self->stageTwoMotor.move(-127);
+                pros::delay(200);
+                self->intakeRunning = true;
+            }
+        }
+
         pros::delay(10);
     }
 }
@@ -112,6 +124,17 @@ bool Intake::discardRing() {
     }
 }
 
+std::string Intake::getColor() {
+    if (ringColorSensor.get_hue() > 340 || ringColorSensor.get_hue() < 20) {
+        color = "Red";
+    } else if (ringColorSensor.get_hue() > 200 && ringColorSensor.get_hue() < 260) {
+        color = "Blue";
+    } else {
+        color = "None";
+    }
+    return color;
+}
+
 // Mogo Arm (for goal rush)
 Arm::Arm(pros::adi::Pneumatics armPiston_, pros::adi::Pneumatics armClampPiston_) 
     : armPiston(armPiston_), armClampPiston(armClampPiston_) {}
@@ -148,14 +171,30 @@ void MogoMech::toggle() {
 LadyBrown::LadyBrown(pros::Motor ladybrownMotor_) 
     : ladybrownMotor(ladybrownMotor_) {}
 void LadyBrown::liftControl() {
-    if (moveIntake) {
-        Intake.out();
-        ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
-        pros::delay(500);
-        Intake.stop();
-        moveIntake = false;
+    if (!resetting) {
+        if (moveIntake) {
+            Intake.out();
+            ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
+            pros::delay(500);
+            Intake.stop();
+            moveIntake = false;
+        } else {
+            ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
+            // if (currState == 3) {
+            //     ladybrownMotor.move(-127);
+            //     pros::delay(50);
+            //     ladybrownMotor.move(0);
+            //     ladybrownMotor.set_zero_position(0);
+            //     nextState();
+            // }
+        }
     } else {
-        ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
+        ladybrownMotor.move(-127);
+        pros::delay(900);
+        ladybrownMotor.move(0);
+        pros::delay(300);
+        ladybrownMotor.set_zero_position(0);
+        resetting = false;
     }
 }
 void LadyBrown::nextState() {
@@ -166,8 +205,10 @@ void LadyBrown::nextState() {
     }
 
     if (currState == 3) {
-            currState = 0;
+        currState = 0;
+        resetting = true;
     }
+
     target = states[currState];
 }
 void LadyBrown::setState(int State) {

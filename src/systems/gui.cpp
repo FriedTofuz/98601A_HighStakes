@@ -1,4 +1,7 @@
 #include "systems/gui.hpp"  
+#include "liblvgl/extra/widgets/led/lv_led.h"
+#include "liblvgl/misc/lv_color.h"
+#include "liblvgl/widgets/lv_label.h"
 #include "systems/hardware.hpp"
 #include "liblvgl/core/lv_disp.h"
 #include "liblvgl/core/lv_obj.h"
@@ -31,6 +34,11 @@ static std::atomic<bool> should_update_coordinates(true);
 lv_obj_t * speed_meter = nullptr;
 lv_meter_indicator_t * speed_indic = nullptr;
 bool speed_meter_initialized = false;
+
+bool col_led_init = false;
+lv_obj_t * col_led = nullptr;
+
+lv_obj_t * discard_label = nullptr;
 
 double prev_x = 0;
 double prev_y = 0;
@@ -228,30 +236,41 @@ void lvgl_display_task_fn(void* param) {
         }
         
         if (speed_meter_initialized) {
-            // Get current position and time
             double current_x = chassis.getPose().x;
             double current_y = chassis.getPose().y;
             uint32_t current_time = pros::millis();
             
-            // Calculate distance traveled
             double dx = fabs(current_x - prev_x);
             double dy = fabs(current_y - prev_y);
             double distance = sqrt(dx*dx + dy*dy);
             
             
-            // Calculate time elapsed in seconds
             double dt = (current_time - prev_time) / 1000.0;
             
-            // Calculate speed in inches per second
             double speed = (dt > 0) ? (distance / dt) : 0;
             
-            // Update the speed meter
             lv_meter_set_indicator_value(speed_meter, speed_indic, (int32_t)speed);
-            
-            // Update previous values
+
             prev_x = current_x;
             prev_y = current_y;
             prev_time = current_time;
+        }
+
+        if (col_led_init) {
+            if (Intake.getColor() == "Red") {
+                lv_led_set_color(col_led, lv_palette_main(LV_PALETTE_RED));
+            } else if (Intake.getColor() == "Blue") {
+                lv_led_set_color(col_led, lv_palette_main(LV_PALETTE_BLUE));
+            } else {
+                lv_led_set_color(col_led, lv_palette_main(LV_PALETTE_GREY));
+            }
+
+            if (Intake.discardRing()) {
+                lv_label_set_text(discard_label, "Discarding");
+            } else {
+                lv_label_set_text(discard_label, "Intaking");
+            }
+
         }
 
         pros::delay(10);
@@ -271,19 +290,27 @@ static void create_confirmation_screen() {
     confirmation_coordinates_label = lv_label_create(confirmation_screen);
     lv_obj_align(confirmation_coordinates_label, LV_ALIGN_BOTTOM_LEFT, 10, -10);
 
-    // Create heading meter
-    heading_meter = lv_meter_create(confirmation_screen);
-    lv_obj_align(heading_meter, LV_ALIGN_LEFT_MID, 30, -20);
-    lv_meter_scale_t * heading_scale = lv_meter_add_scale(heading_meter);
-    indic = lv_meter_add_needle_line(heading_meter, heading_scale, 4, lv_palette_main(LV_PALETTE_RED), 0);
-    lv_meter_set_scale_range(heading_meter, heading_scale, 0, 360, 360, 270);
-    meter_initialized = true;
+    // heading_meter = lv_meter_create(confirmation_screen);
+    // lv_obj_align(heading_meter, LV_ALIGN_LEFT_MID, 30, -20);
+    // lv_meter_scale_t * heading_scale = lv_meter_add_scale(heading_meter);
+    // indic = lv_meter_add_needle_line(heading_meter, heading_scale, 4, lv_palette_main(LV_PALETTE_RED), 0);
+    // lv_meter_set_scale_range(heading_meter, heading_scale, 0, 360, 360, 270);
+    // meter_initialized = true;
 
-    lv_obj_t * heading_label = lv_label_create(heading_meter);
-    lv_label_set_text(heading_label, "Heading");
-    lv_obj_align(heading_label, LV_ALIGN_LEFT_MID, 15, 45);
+    // lv_obj_t * heading_label = lv_label_create(heading_meter);
+    // lv_label_set_text(heading_label, "Heading");
+    // lv_obj_align(heading_label, LV_ALIGN_LEFT_MID, 15, 45);
 
-    // Create speed meter
+
+    col_led = lv_led_create(confirmation_screen);
+    lv_obj_align(col_led, LV_ALIGN_LEFT_MID, 30, -20);
+    lv_led_on(col_led);
+    lv_led_set_brightness(col_led, 255);
+    lv_obj_set_size(col_led, 90, 90);
+
+    discard_label = lv_label_create(col_led);
+    lv_obj_align(discard_label, LV_ALIGN_CENTER, 0, 0);
+
     speed_meter = lv_meter_create(confirmation_screen);
     lv_obj_align(speed_meter, LV_ALIGN_RIGHT_MID, -30, -20);
     lv_meter_scale_t * speed_scale = lv_meter_add_scale(speed_meter);
@@ -293,20 +320,22 @@ static void create_confirmation_screen() {
     lv_obj_t * speed_label = lv_label_create(speed_meter);
     lv_label_set_text(speed_label, "Speed");
     lv_obj_align(speed_label, LV_ALIGN_RIGHT_MID, -20, 45);
+
+
+
     
     
-    // Initialize speed tracking variables
     prev_x = chassis.getPose().x;
     prev_y = chassis.getPose().y;
     prev_time = pros::millis();
-    
+
+    col_led_init = true;
     speed_meter_initialized = true;
 }
 
 void initialize_display() {
     lv_init();
     
-    // Create screens
     create_auton_sel_screen();
     create_match_sel_screen();
     

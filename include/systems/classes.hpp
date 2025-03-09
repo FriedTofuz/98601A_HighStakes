@@ -12,6 +12,8 @@ class Intake {
         void stop();
         void setIntakeSpeed(int voltage);
         bool discardRing();
+        bool discarding;
+        std::string getColor();
         bool allowed;
     private: 
         // the Intake class is the only class that will use these things, so it is encapsulated in the class
@@ -59,10 +61,11 @@ class LadyBrown {
         void liftControl();
         void setState(int State);
         static int currState;
+        bool resetting;
     private:
         int target = 0;
         double kp = .65;
-        int states[3] = {0, 300, 2000};
+        int states[4] = {0, 300, 2000, 0};
         pros::Motor ladybrownMotor;
         bool moveIntake;
 };
