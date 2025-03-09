@@ -39,7 +39,7 @@ void initialize() {
             if (Intake.discarding) {
                 if (stageTwoMotor.get_position() - old > delay) {
                     Intake.allowed = false;
-                    pros::delay(100);
+                    pros::delay(300);
                     Intake.allowed = true;
                     Intake.discarding = false;
                 }
