@@ -28,8 +28,7 @@ inline MogoMech MogoMech(mogomechPiston);
 
 // Mogo Arm (for goal rush)
 inline pros::adi::Pneumatics armPiston(2, false);
-inline pros::adi::Pneumatics armClampPiston(3, false);
-inline Arm MogoArm(armPiston, armClampPiston); 
+inline Arm MogoArm(armPiston); 
 
 // Intake 
 inline pros::Motor stageOneMotor(15, pros::MotorGears::blue, pros::v5::MotorUnits::rotations);

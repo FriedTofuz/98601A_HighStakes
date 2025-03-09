@@ -6,19 +6,58 @@
 #include "systems/hardware.hpp"
 #include "systems/classes.hpp"
 
-void ringSideBlue() {
-    //code here
+//DONE
+void ringSideBlue() { 
     Intake.allowed = true;
-    Intake.in(false, false);
 
+    chassis.setPose(8.7, -0.5,50.25);
+    MogoMech.release();
+    chassis.moveToPoint(13.5, 3.75, 3000, {.maxSpeed=80, .earlyExitRange=3});
+    pros::delay(200);
+    LadyBrown.setState(2);
+    pros::delay(700);
+    LadyBrown.setState(0);
+    chassis.moveToPoint(0, -30.5, 2000, {.forwards=false, .maxSpeed=70}, false);
+    MogoMech.clamp(); // grab mogo
+    pros::delay(200);
+    chassis.turnToHeading(-126.75, 1000, {.minSpeed=100, .earlyExitRange=25}); //turn to first ring
+    Intake.setIntakeSpeed(127);
+    Intake.in(false, false);
+    chassis.moveToPoint(-14, -36, 2000, {.maxSpeed=70, .earlyExitRange=15}); //move to line 
+    chassis.swingToHeading(-90, lemlib::DriveSide::RIGHT, 500, {.earlyExitRange=25});
+    chassis.moveToPoint(-23, -38, 2000, {.maxSpeed=70, .earlyExitRange=5});
+    chassis.swingToHeading(85, lemlib::DriveSide::RIGHT, 1500, {.direction=lemlib::AngularDirection::CW_CLOCKWISE, .earlyExitRange=25}); //take third ring
+    chassis.turnToHeading(0, 1000);
+    chassis.moveToPoint(-10, -3, 1500);   
+    chassis.turnToHeading(90, 400);
+    chassis.moveToPoint(35, -3, 2500, {.maxSpeed=65});
 }
 
+//DONE
 void ringSideRed() {
-    MogoArm.down();
-    pros::delay(1000);
-    MogoArm.up();
-    pros::delay(1000);
-    MogoArm.down();
+    Intake.allowed = true;
+
+    chassis.setPose(-8.7, -0.5,-50.25);
+    MogoMech.release();
+    chassis.moveToPoint(-13.5, 3.75, 3000, {.maxSpeed=80, .earlyExitRange=3});
+    pros::delay(200);
+    LadyBrown.setState(2);
+    pros::delay(700);
+    LadyBrown.setState(0);
+    chassis.moveToPoint(0, -30.5, 2000, {.forwards=false, .maxSpeed=70}, false);
+    MogoMech.clamp(); // grab mogo
+    pros::delay(200);
+    chassis.turnToHeading(126.75, 1000, {.minSpeed=100, .earlyExitRange=25}); //turn to first ring
+    Intake.setIntakeSpeed(127);
+    Intake.in(false, false);
+    chassis.moveToPoint(14, -45, 2000, {.maxSpeed=70, .earlyExitRange=15}); //move to line 
+    chassis.swingToHeading(90, lemlib::DriveSide::LEFT, 500, {.earlyExitRange=25});
+    chassis.moveToPoint(23, -47, 2000, {.maxSpeed=70, .earlyExitRange=5});
+    chassis.swingToHeading(-85, lemlib::DriveSide::LEFT, 1500, {.direction=lemlib::AngularDirection::CCW_COUNTERCLOCKWISE, .earlyExitRange=25}); //take third ring
+    chassis.turnToHeading(0, 1000);
+    chassis.moveToPoint(10, -3, 1500);   
+    chassis.turnToHeading(-90, 400);
+    chassis.moveToPoint(-35, -3, 2500, {.maxSpeed=65});
 }
 
 void goalSideBlue() {
@@ -27,63 +66,66 @@ void goalSideBlue() {
 }
 
 void goalSideRed() {
-    //code here
-    Intake.allowed = true;
+    Intake.in(1, 0);
 }
 
-void ringSideBlueAWP() {
+//DONE
+void ringSideBlueAWP() { 
     Intake.allowed = true;
 
     chassis.setPose(8.7, -0.5,50.25);
     MogoMech.release();
-    chassis.moveToPoint(13.5, 3.75, 3000, {.maxSpeed=80, .earlyExitRange=3}, false);
+    chassis.moveToPoint(13.5, 3.75, 3000, {.maxSpeed=80, .earlyExitRange=3});
+    pros::delay(200);
     LadyBrown.setState(2);
-    pros::delay(500);
-    chassis.moveToPoint(0, -30.5, 2000, {.forwards=false, .maxSpeed=80}, false);
-    MogoMech.clamp(); // grab mogo
+    pros::delay(700);
     LadyBrown.setState(0);
+    chassis.moveToPoint(0, -30.5, 2000, {.forwards=false, .maxSpeed=70}, false);
+    MogoMech.clamp(); // grab mogo
     pros::delay(200);
     chassis.turnToHeading(-126.75, 1000, {.minSpeed=100, .earlyExitRange=25}); //turn to first ring
     Intake.setIntakeSpeed(127);
     Intake.in(false, false);
-    chassis.moveToPoint(-16, -38, 2000, {.earlyExitRange=15});
+    chassis.moveToPoint(-14, -36, 2000, {.maxSpeed=70, .earlyExitRange=15}); //move to line 
     chassis.swingToHeading(-90, lemlib::DriveSide::RIGHT, 500, {.earlyExitRange=25});
-    chassis.moveToPoint(-27, -40, 2000, {.maxSpeed=70, .earlyExitRange=5});
-    chassis.swingToHeading(55, lemlib::DriveSide::RIGHT, 500, {.earlyExitRange=25});
-    chassis.moveToPoint(-26, -28.5, 1500, {.earlyExitRange=10});
-    chassis.turnToHeading(-35, 500, {.earlyExitRange=40});
-    chassis.moveToPoint(-36, 8,1500, {.maxSpeed=80, .earlyExitRange=10});
-    MogoArm.down();
-    chassis.turnToHeading(90, 2000, {.direction=lemlib::AngularDirection::CW_CLOCKWISE, .maxSpeed=30, .earlyExitRange=20});
-    chassis.moveToPoint(10, -18, 2000, {.earlyExitRange=10});
-    MogoArm.up();
+    chassis.moveToPoint(-23, -38, 2000, {.maxSpeed=70, .earlyExitRange=5});
+    chassis.swingToHeading(85, lemlib::DriveSide::RIGHT, 1500, {.direction=lemlib::AngularDirection::CW_CLOCKWISE, .earlyExitRange=25}); //take third ring
+    chassis.turnToHeading(0, 1000);
+    chassis.moveToPoint(-10, -3, 1500);   
+    chassis.turnToHeading(90, 400);
+    chassis.moveToPoint(35, -3, 2500, {.maxSpeed=65});
+    chassis.turnToPoint(15, -25, 2000);
+    pros::delay(500);
+    chassis.moveToPoint(15, -25, 2000, {.maxSpeed=45});
 }
-void ringSideRedAWP() {
+
+//DONE
+void ringSideRedAWP() { 
     Intake.allowed = true;
 
     chassis.setPose(-8.7, -0.5,-50.25);
     MogoMech.release();
-    chassis.moveToPoint(-13.5, 3.75, 3000, {.maxSpeed=80, .earlyExitRange=3}, false);
+    chassis.moveToPoint(-13.5, 3.75, 3000, {.maxSpeed=80, .earlyExitRange=3});
+    pros::delay(200);
     LadyBrown.setState(2);
-    pros::delay(500);
-    chassis.moveToPoint(5, -30.5, 2000, {.forwards=false, .maxSpeed=80}, false);
-    MogoMech.clamp(); // grab mogo
+    pros::delay(700);
     LadyBrown.setState(0);
+    chassis.moveToPoint(0, -30.5, 2000, {.forwards=false, .maxSpeed=70}, false);
+    MogoMech.clamp(); // grab mogo
     pros::delay(200);
     chassis.turnToHeading(126.75, 1000, {.minSpeed=100, .earlyExitRange=25}); //turn to first ring
     Intake.setIntakeSpeed(127);
     Intake.in(false, false);
-    chassis.moveToPoint(14, -43, 2000, {.earlyExitRange=15});
+    chassis.moveToPoint(14, -45, 2000, {.maxSpeed=70, .earlyExitRange=15}); //move to line 
     chassis.swingToHeading(90, lemlib::DriveSide::LEFT, 500, {.earlyExitRange=25});
-    chassis.moveToPoint(30, -44, 2000, {.maxSpeed=70, .earlyExitRange=5});
-    chassis.swingToHeading(-40, lemlib::DriveSide::LEFT, 500, {.earlyExitRange=25});
-    chassis.moveToPoint(26, -22, 1500, {.earlyExitRange=10});
-    chassis.turnToHeading(45, 500, {.earlyExitRange=40});
-    chassis.moveToPoint(43, 4,1500, {.maxSpeed=80, .earlyExitRange=10});
-    MogoArm.down();
-    chassis.turnToHeading(-90, 2000, {.direction=lemlib::AngularDirection::CCW_COUNTERCLOCKWISE, .maxSpeed=30, .earlyExitRange=20});
-    chassis.moveToPoint(-12, -18, 2000, {.earlyExitRange=10});
-    MogoArm.up();
+    chassis.moveToPoint(23, -47, 2000, {.maxSpeed=70, .earlyExitRange=5});
+    chassis.swingToHeading(-85, lemlib::DriveSide::LEFT, 1500, {.direction=lemlib::AngularDirection::CCW_COUNTERCLOCKWISE, .earlyExitRange=25}); //take third ring
+    chassis.turnToHeading(0, 1000);
+    chassis.moveToPoint(10, -3, 1500);   
+    chassis.turnToHeading(-90, 400);
+    chassis.moveToPoint(-35, -3, 2500, {.maxSpeed=65});
+    pros::delay(500);
+    chassis.moveToPoint(-25, -25, 2000, {.maxSpeed=45});
 }
 
 void goalSideRedAWP() {
@@ -93,21 +135,18 @@ void goalSideRedAWP() {
 
 void goalSideBlueAWP() {
     Intake.allowed = true;
-    chassis.setPose(0,0,0);
-    MogoArm.down();
+    Intake.stop();
+    chassis.setPose(.3,0,0);
     MogoMech.release();
-    MogoArm.release();
     Intake.setIntakeSpeed(127);
-    Intake.in(true, 0);
-    chassis.moveToPoint(0, 33, 1200, {.earlyExitRange=10},false);
-    chassis.turnToHeading(0, 500);
-    pros::delay(200);
-    MogoArm.clamp();
-    pros::delay(200);
+    stageOneMotor.move(127);
+    chassis.moveToPoint(0, 34, 800, {.earlyExitRange=10},false);
+    //stop editing here
+    MogoArm.down();
     chassis.moveToPoint(0, 18, 3000, {.forwards=false}, false);
-    MogoArm.release();
     MogoArm.up();
-    chassis.moveToPoint(28, 44.5, 2000, {.forwards=false, .maxSpeed=80}, false);
+    pros::delay(400);
+    chassis.moveToPoint(28, 46, 2000, {.forwards=false, .maxSpeed=80}, false);
     MogoMech.clamp();
     Intake.in(0, 0);
     pros::delay(300);
@@ -116,11 +155,11 @@ void goalSideBlueAWP() {
     chassis.moveToPoint(-8, 36, 2000, {.forwards=false, .maxSpeed=80}, false); //second mogo
     MogoMech.clamp();
     pros::delay(200);
-    chassis.moveToPoint(14, 0, 1000, {}, false);
+    chassis.moveToPoint(22, 5, 1500, {}, false);
     chassis.swingToHeading(235, lemlib::DriveSide::RIGHT, 1000, {}, false);
     MogoArm.down();
     pros::delay(200);
-    chassis.moveToPoint(3.5, -6.5, 1000, {.maxSpeed=80});
+    chassis.moveToPoint(3.5, 0, 1000, {.maxSpeed=80});
     chassis.turnToHeading(370, 2000, {.maxSpeed=70}, false);
     chassis.moveToPoint(7, 20, 1500, {.minSpeed=100, .earlyExitRange=15});
     chassis.moveToPoint(34.25, 43, 2000, {}, false);
@@ -129,55 +168,78 @@ void goalSideBlueAWP() {
 }
 
 void skills() {
+    // first quadrant 
     Intake.allowed = true;
     chassis.setPose(-11.5,-1.5,51);
     Intake.setIntakeSpeed(127);
+    MogoMech.release();
     LadyBrown.setState(2);
-    pros::delay(1000);
-    chassis.moveToPoint(-26, -16, 2000, {.forwards=false, .maxSpeed=65}, false);
-    MogoMech.clamp();
-    pros::delay(500);
-    Intake.in(false, false);
+    pros::delay(750);
     LadyBrown.setState(0);
-    chassis.turnToHeading(170,1000); //face 1st ring
-    chassis.moveToPoint(-28,-26,2000); //move to first ring, eat first ring
-    chassis.turnToHeading(210,2000); // turn to far quadrant ring (right)
-    chassis.moveToPoint(-43.5,-76,2000); // move to far quadrant ring (right)
-    chassis.turnToHeading(360,2000); // turn to face 3rd ring
-    chassis.moveToPoint(-37.2,-62,2000); // go toward the thing
+    chassis.moveToPoint(-26, -16, 1000, {.forwards=false, .maxSpeed=95}, false);
+    MogoMech.clamp();
+    pros::delay(300);
+    chassis.turnToHeading(170,400, {.earlyExitRange=10}); //face 1st ring
+    Intake.in(false, false);
+    chassis.moveToPoint(-28,-26,800, {.earlyExitRange=10}); //move to first ring, eat first ring
+    chassis.turnToHeading(210,400, {.earlyExitRange=10}); // turn to far quadrant ring (right)
+    chassis.moveToPoint(-43.5,-76,2000, {.maxSpeed=100}); // move to far quadrant ring (right)
+    chassis.turnToHeading(360,600, {.earlyExitRange=30}); // turn to face 3rd ring
     LadyBrown.setState(1); 
-    chassis.turnToHeading(265,2000);
-    chassis.moveToPoint(-55,-56.5,2000, {}, false);
-    pros::delay(1500);
+    chassis.moveToPoint(-37,-61,700, {}); // go toward the thing
+    chassis.turnToHeading(265,600,{.earlyExitRange=25});
+    chassis.moveToPoint(-56,-56.5,1500, {}, false);
     Intake.setIntakeSpeed(-127);
     pros::delay(30);
     LadyBrown.setState(2); // put down lady brown on wall
-    pros::delay(1000);
+    pros::delay(100);
     Intake.setIntakeSpeed(127);
-    pros::delay(500);
-    chassis.moveToPoint(-43.5,-54,2000, {.forwards=false}); //move back out after wall
+    pros::delay(700);
+    chassis.moveToPoint(-43.5,-54,1000, {.forwards=false, .earlyExitRange=10}); //move back out after wall
+    chassis.turnToHeading(360,600, {.earlyExitRange=30}); //turn to face 3 rings in a row
     LadyBrown.setState(0);
-    chassis.turnToHeading(352,2000); //turn to face 3 rings in a row
-    chassis.moveToPoint(-47,-2,5000, {.maxSpeed=55}); //move forward to eat 3 rings in a row
-    chassis.swingToHeading(248,lemlib::DriveSide::RIGHT,2000);
-    chassis.moveToPoint(-59,-8,2000);
-    chassis.turnToHeading(165,2000);
-    chassis.moveToPoint(-67,-2,2000, {.forwards=false}, false);
+    chassis.moveToPoint(-46, -20, 2000, {.minSpeed=80, .earlyExitRange=20});
+    chassis.moveToPoint(-46,-4,2000, {.maxSpeed=40}); //move forward to eat 3 rings in a row
+    chassis.swingToHeading(150, lemlib::DriveSide::LEFT, 1700, {.direction=lemlib::AngularDirection::CCW_COUNTERCLOCKWISE, .maxSpeed=55});
+    chassis.moveToPoint(-63, -13, 1500);
+    pros::delay(500);
+    chassis.moveToPoint(-68, 0,1000, {.forwards=false}, false);
     MogoMech.release();
 
-    //chassis.turnToHeading(-90, 1000);
-    //chassis.moveToPoint(float x, float y, int timeout, {.forward=false});
-    // MogoMech.clamp();
-    // pros::delay(300);
-    // chassis.turnToHeading(0, 1000);
-    // chassis.moveToPoint(float x, float y, int timeout);
-    // chassis.turnToHeading(float theta, int timeout);
-    // chassis.moveToPoint(float x, float y, int timeout);
-    // chassis.turnToHeading(180, 2000);
-    // chassis.moveToPoint(float x, float y, int timeout); //move in front of first wall stake 
-    // chassis.turnToHeading(90, 1000);
-    // chassis.moveToPoint(float x, float y, int timeout);
-    // LadyBrown.setState(2);
-    // pros::delay(const uint32_t milliseconds);
+    chassis.moveToPoint(-25, -8, 1500);
+    Intake.stop();
+    chassis.turnToHeading(-90, 800);
+    // second quadrant 
+
+    chassis.moveToPoint(26, -3, 2500, {.forwards=false, .maxSpeed=75}, false);
+    MogoMech.clamp();
+    pros::delay(300);
+    chassis.turnToHeading(-180,500, {.earlyExitRange=10}); //face 1st ring
+    Intake.in(false, false);
+    chassis.moveToPoint(22,-26,800, {}); //move to first ring, eat first ring
+    chassis.turnToHeading(-225,400, {.earlyExitRange=10}); // turn to far quadrant ring (right)
+    chassis.moveToPoint(43.5,-76,2000, {.maxSpeed=100}); // move to far quadrant ring (right)
+    chassis.turnToHeading(-360,600, {.earlyExitRange=30}); // turn to face 3rd ring
+    LadyBrown.setState(1); 
+    chassis.moveToPoint(46,-55.5,800, {}); // go toward the thing
+    chassis.turnToHeading(-265,600,{.earlyExitRange=25});
+    chassis.moveToPoint(58,-53,2000, {}, false);
+    Intake.setIntakeSpeed(-127);
+    pros::delay(30);
+    LadyBrown.setState(2); // put down lady brown on wall
+    pros::delay(100);
+    Intake.setIntakeSpeed(127);
+    pros::delay(800);
+    chassis.moveToPoint(47,-54,1000, {.forwards=false, .earlyExitRange=10}); //move back out after wall
+    chassis.turnToHeading(360,600, {.earlyExitRange=30}); //turn to face 3 rings in a row
+    LadyBrown.setState(0);
+    chassis.moveToPoint(52, -20, 2000, {.minSpeed=80, .earlyExitRange=20});
+    chassis.moveToPoint(52,-3,2000, {.maxSpeed=40}); //move forward to eat 3 rings in a row
+    chassis.swingToHeading(150, lemlib::DriveSide::RIGHT, 1500, {.direction=lemlib::AngularDirection::CW_CLOCKWISE, .maxSpeed=60});
+    chassis.moveToPoint(62, -13, 1500);
+    pros::delay(500);
+    chassis.moveToPoint(62, 0,1000, {.forwards=false}, false);
+    MogoMech.release();
+    chassis.moveToPoint(30, -20, 1000);
 
 }

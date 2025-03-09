@@ -53,7 +53,7 @@ void Intake::intakeTaskFn(void* param) {
             if (self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1) {
                 self->intakeRunning = false;
                 self->stageTwoMotor.move(-127);
-                pros::delay(200);
+                pros::delay(100);
                 self->intakeRunning = true;
             }
         }
@@ -136,22 +136,13 @@ std::string Intake::getColor() {
 }
 
 // Mogo Arm (for goal rush)
-Arm::Arm(pros::adi::Pneumatics armPiston_, pros::adi::Pneumatics armClampPiston_) 
-    : armPiston(armPiston_), armClampPiston(armClampPiston_) {}
+Arm::Arm(pros::adi::Pneumatics armPiston_) 
+    : armPiston(armPiston_) {}
 void Arm::up() {
     armPiston.retract();
 }
 void Arm::down() {
     armPiston.extend();
-}
-void Arm::clamp() {
-    armClampPiston.extend();
-}
-void Arm::release() {
-    armClampPiston.retract();
-}
-void Arm::toggle() {
-    armPiston.toggle();
 }
 
 // Mogo Mech

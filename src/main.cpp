@@ -31,7 +31,7 @@ void initialize() {
             if (Intake.discardRing() && LadyBrown.currState != 1) {
                 if (!Intake.discarding) {
                     old = stageTwoMotor.get_position();
-                    delay = 0.7;
+                    delay = .825;
                     Intake.discarding = true;
                 }
             }
@@ -39,7 +39,7 @@ void initialize() {
             if (Intake.discarding) {
                 if (stageTwoMotor.get_position() - old > delay) {
                     Intake.allowed = false;
-                    pros::delay(300);
+                    pros::delay(100);
                     Intake.allowed = true;
                     Intake.discarding = false;
                 }
@@ -61,6 +61,7 @@ void autonomous() {
     leftMotors.set_brake_mode_all(pros::MotorBrake::brake);
     rightMotors.set_brake_mode_all(pros::MotorBrake::brake);
     runAuton();
+    
 }
 
 void opcontrol() {

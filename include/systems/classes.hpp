@@ -32,15 +32,11 @@ class Intake {
 
 class Arm {
     public:
-        Arm(pros::adi::Pneumatics armPiston, pros::adi::Pneumatics armClampPiston);
+        Arm(pros::adi::Pneumatics armPiston);
         void down();
         void up();
-        void clamp();
-        void release();
-        void toggle();
     private:
         pros::adi::Pneumatics armPiston;
-        pros::adi::Pneumatics armClampPiston;
 };
 
 class MogoMech {
