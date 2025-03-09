@@ -91,9 +91,39 @@ void goalSideBlue() {
     MogoArm.up();
 }
 
-//
+//DONE
 void goalSideRed() {
+    Intake.allowed = true;
+    Intake.stop();
+    chassis.setPose(-25, 9.5,46);
+    MogoMech.release();
+    Intake.setIntakeSpeed(127);
     Intake.in(1, 0);
+    chassis.moveToPoint(0, 32, 800, {.minSpeed=110},false);
+    MogoArm.down();
+    chassis.moveToPoint(0, 18, 3000, {.forwards=false}, false);
+    MogoArm.up();
+    pros::delay(400);
+    chassis.moveToPoint(-28, 45, 2000, {.forwards=false, .maxSpeed=80}, false);
+    MogoMech.clamp();
+    pros::delay(200);
+    chassis.turnToHeading(90, 700, {});
+    Intake.in(0, 0);
+    pros::delay(1300);
+    MogoMech.release();
+    chassis.moveToPoint(11, 36, 2000, {.forwards=false, .maxSpeed=70}, false); //second mogo
+    MogoMech.clamp();
+    pros::delay(300);
+    chassis.turnToHeading(-170, 700);
+    MogoArm.down();
+    Intake.setIntakeSpeed(-127);
+    chassis.moveToPoint(-2.75, 0, 1500);
+    chassis.turnToHeading(-120,800, {.maxSpeed=55});
+    Intake.setIntakeSpeed(127);
+    chassis.moveToPoint(-14, -2.5, 600, {}, false);
+    chassis.swingToHeading(-74, lemlib::DriveSide::RIGHT, 1000, {.maxSpeed=55});
+    chassis.moveToPoint(-17, 5, 1500);
+    MogoArm.up();
 }
 
 //DONE
@@ -155,7 +185,7 @@ void ringSideRedAWP() {
     chassis.moveToPoint(-25, -25, 2000, {.maxSpeed=45});
 }
 
-//PROGRESS
+//DONE
 void goalSideRedAWP() {
     Intake.allowed = true;
     Intake.stop();
