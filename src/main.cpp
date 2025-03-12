@@ -1,5 +1,6 @@
 #include "main.h"
 #include "pros/device.hpp"
+#include "pros/misc.h"
 #include "pros/rtos.hpp"
 #include "systems/classes.hpp"
 #include "systems/hardware.hpp"
@@ -44,8 +45,6 @@ void initialize() {
                     Intake.discarding = false;
                 }
             }
-
-            std::cout << ladybrownMotor.get_position() << std::endl;
         };
     });
 
@@ -69,8 +68,27 @@ void opcontrol() {
     leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
     rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
 
-	while (true) {					 
-        chassis.arcade(Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), Master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
+	while (true) {
+        float speed = (driveTrain.leftMotors->get_actual_velocity() + driveTrain.rightMotors->get_actual_velocity()) / 2;
+        std::string current;
+        bool manual = Master.get_digital(pros::E_CONTROLLER_DIGITAL_Y);
+
+        if (speed > 250 || manual) {
+            current = "Curvature";
+
+            int leftY = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+            int rightX = Master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+
+            chassis.curvature(leftY, rightX);
+        } else {
+            current = "Arcade";
+
+            chassis.arcade(Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), Master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
+        }
+
+        std::cout << "Current: " << current << " Speed: " << speed << std::endl;
+        
+
         intakeControl();
 		mogoControl();
 		ladybrownControl();

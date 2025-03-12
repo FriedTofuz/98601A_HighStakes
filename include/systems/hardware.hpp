@@ -89,14 +89,14 @@ inline lemlib::ControllerSettings angularController(
 
 // TROTTLE INPUT CURVE
 inline lemlib::ExpoDriveCurve throttleCurve(
-    10,    // joystick deadband out of 127
+    5,    // joystick deadband out of 127
     10,   // minimum output where drivetrain will move out of 127
     1.02 // expo curve gain
 );
 
 // STEER INPUT CURVE
 inline lemlib::ExpoDriveCurve steerCurve(
-    10,    // joystick deadband out of 127
+    5,    // joystick deadband out of 127
     10,   // minimum output where drivetrain will move out of 127
     1.029 // expo curve gain
 );
