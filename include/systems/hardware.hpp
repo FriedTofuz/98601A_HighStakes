@@ -63,7 +63,7 @@ inline lemlib::Drivetrain driveTrain(
 
 // Lateral PID Controller
 inline lemlib::ControllerSettings linearController(
-    8.5,  // proportional gain (kP)
+    9,  // proportional gain (kP)
     0.6,  // integral gain (kI)
     40, // derivative gain (kD)
     0.5, // anti windup
@@ -76,7 +76,7 @@ inline lemlib::ControllerSettings linearController(
 
 // ANGULAR PID CONTROLLER
 inline lemlib::ControllerSettings angularController(
-    5.5,// proportional gain (kP)
+    5.3,// proportional gain (kP)
     0,   // integral gain (kI) 2
     50, // derivative gain (kD) old: 6x
     0,   // anti windup

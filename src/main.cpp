@@ -31,24 +31,33 @@ void initialize() {
         Intake.discarding = false;
         while (true) {
             LadyBrown.liftControl();
-            // Intake.intakeControl();
+            Intake.intakeControl();
 
             pros::delay(10);
 
-            if (Intake.discardRing() && LadyBrown.currState != 1) {
+            // if (Intake.discardRing() && LadyBrown.currState != 1) {
+            //     if (!Intake.discarding) {
+
+            //         old = stageTwoMotor.get_position();
+            //         delay = 0.5; 
+            //         Intake.discarding = true;
+            //     }
+            // }
+
+            // if (Intake.discarding) {
+            //     if (stageTwoMotor.get_position() - old > delay) {
+            //         Intake.allowed = false;
+            //         pros::delay(300);
+            //         Intake.allowed = true;
+            //         Intake.discarding = false;
+            //     }
+            // }
+
+            if (Intake.discardRing()) {
                 if (!Intake.discarding) {
-
-                    old = stageTwoMotor.get_position();
-                    delay = 2;
                     Intake.discarding = true;
-                }
-            }
-
-            if (Intake.discarding) {
-                if (stageTwoMotor.get_position() - old > delay) {
-                    Intake.allowed = false;
-                    pros::delay(300);
-                    Intake.allowed = true;
+                    Intake.nextState();
+                    pros::delay(2000);
                     Intake.discarding = false;
                 }
             }
@@ -64,9 +73,10 @@ void initialize() {
 
 void autonomous() {
     Intake.setIntakeSpeed(127);
-    leftMotors.set_brake_mode_all(pros::MotorBrake::brake);
-    rightMotors.set_brake_mode_all(pros::MotorBrake::brake);
-    runAuton();
+    leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
+    rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
+    chassis.turnToHeading(90, 2000);
+    // runAuton();
     
 }
 

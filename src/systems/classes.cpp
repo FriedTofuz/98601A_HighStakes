@@ -59,8 +59,8 @@ void Intake::intakeTaskFn(void* param) {
 }
 
 void Intake::intakeControl() {
-    // stageTwoMotor.move_absolute(target - stageTwoMotor.get_position(), 1000);
-    // std::cout << kp * (target - stageTwoMotor.get_position() ) << std::endl;
+    stageTwoMotor.move_absolute(target - stageTwoMotor.get_position(), 1000);
+    std::cout << kp * (target - stageTwoMotor.get_position() ) << std::endl;
 }
 
 void Intake::nextState() {
@@ -83,11 +83,12 @@ void Intake::in(bool stageOneOnly, bool stageTwoOnly) {
     //     stageTwoMotor.move(intakeSpeed);
     // }
     // pros::delay(10);
-
-    intakeSpeed = 127;
-    stageOne = stageOneOnly;
-    stageTwo = stageTwoOnly;
-    intakeRunning = true; 
+    if (!discarding) {
+        intakeSpeed = 127;
+        stageOne = stageOneOnly;
+        stageTwo = stageTwoOnly;
+        intakeRunning = true; 
+    }
 }
 
 void Intake::out() {
