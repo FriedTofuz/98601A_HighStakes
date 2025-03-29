@@ -4,6 +4,8 @@
 #include "pros/motors.hpp"
 #include "pros/optical.hpp"
 
+extern std::string currInput;
+
 class Intake {
     public:
         Intake(pros::Motor stageOneMotor, pros::Motor stageTwoMotor, pros::Optical ringColorSensor);
@@ -15,8 +17,14 @@ class Intake {
         bool discarding;
         std::string getColor();
         bool allowed;
+        void intakeControl();
+        float target = 0;
+        double kp = 1000;
+        int currState = 0;
+        float states[5] = {0, 2.82, 5.5, 8.17, 10.83};
+        void nextState();
+        bool jam;
     private: 
-        // the Intake class is the only class that will use these things, so it is encapsulated in the class
         static void intakeTaskFn(void* param);
         std::unique_ptr<pros::Task> intakeTask;
         bool stageOne = false;

@@ -1,7 +1,10 @@
 #include "systems/gui.hpp"  
+#include "classes.hpp"
 #include "liblvgl/extra/widgets/led/lv_led.h"
 #include "liblvgl/misc/lv_color.h"
+#include "liblvgl/misc/lv_style.h"
 #include "liblvgl/widgets/lv_label.h"
+#include "pros/rtos.hpp"
 #include "systems/hardware.hpp"
 #include "liblvgl/core/lv_disp.h"
 #include "liblvgl/core/lv_obj.h"
@@ -11,12 +14,16 @@
 #include "liblvgl/widgets/lv_btnmatrix.h"
 #include <cmath>
 #include <atomic>
+#include <iterator>
+#include <ostream>
+#include <random>
 #include "autons.hpp"
 
 static lv_obj_t *auton_sel_screen = nullptr;
 static lv_obj_t *match_sel_screen = nullptr;
 static lv_obj_t *confirmation_screen = nullptr;
 static lv_obj_t *current_screen = nullptr;
+static lv_obj_t *practice_screen = nullptr;
 
 static lv_obj_t *match_btnm = nullptr;
 static lv_obj_t *auton_btnm = nullptr;
@@ -26,6 +33,10 @@ const char * team = nullptr;
 static const char * side = nullptr;
 static const char * wp = nullptr;
 
+std::string currInput = "";
+
+static lv_obj_t *practice_label = nullptr;
+
 static lv_obj_t *auton_coordinates_label = nullptr;
 static lv_obj_t *match_coordinates_label = nullptr;
 static lv_obj_t *confirmation_coordinates_label = nullptr;
@@ -34,6 +45,10 @@ static std::atomic<bool> should_update_coordinates(true);
 lv_obj_t * speed_meter = nullptr;
 lv_meter_indicator_t * speed_indic = nullptr;
 bool speed_meter_initialized = false;
+
+bool practice = false;
+std::string practice_current = "";
+std::string practice_input = "";
 
 bool col_led_init = false;
 lv_obj_t * col_led = nullptr;
@@ -50,7 +65,11 @@ static bool meter_initialized = false;
 
 static void create_confirmation_screen(void);
 
-static const char * auton_sel_map[] = {"Match Auton", "Skills Auton", ""};
+int getRandom(int min, int max) {
+    return min + rand() % (max - min + 1);
+}
+
+static const char * auton_sel_map[] = {"Match Auton", "Skills Auton", "Practice", ""};
 static const char * match_sel_map[] = {"Red Side", "Blue Side", "\n",
                                       "Ring Side", "Goal Side", "\n",
                                       "Win Point", ""};
@@ -151,7 +170,28 @@ static void event_handler(lv_event_t * e) {
             lv_scr_load_anim(confirmation_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, false);
             current_screen = confirmation_screen;
         }
+
+        if (strcmp(txt, "Practice") == 0) {
+            lv_scr_load_anim(practice_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, false);
+            current_screen = practice_screen;
+
+            practice = true;
+        }
     }
+}
+
+static void create_practice_screen() {
+    practice_screen = lv_obj_create(NULL);
+
+    practice_label = lv_label_create(practice_screen);
+    lv_obj_align(practice_label, LV_ALIGN_CENTER, 0, -12);
+    lv_obj_set_width(practice_label, 200);
+
+    static lv_style_t style;
+    lv_style_init(&style);
+
+    practice_current = "wait...";
+    lv_label_set_text(practice_label, practice_current.c_str());
 }
 
 static void create_auton_sel_screen() {
@@ -273,6 +313,31 @@ void lvgl_display_task_fn(void* param) {
 
         }
 
+        std::string inputs[5] = {"Clamp", "Doinker", "Ladybrown", "Intake", "Outtake"};
+
+        if (practice) {
+            std::cout << "practice";
+            if (practice_input == "") {
+                lv_label_set_text(practice_label, practice_current.c_str());
+            } else {
+                if (currInput == practice_current) {
+                    lv_label_set_text(practice_label, "good job");
+                } else {
+                    lv_label_set_text(practice_label, ":(");
+
+                    pros::delay(getRandom(1000, 2000));
+
+                    practice_current = inputs[getRandom(0, 4)];
+
+                    practice_input = "";
+                }
+            }
+        } else {
+            practice_current = inputs[getRandom(0, 4)];
+        }
+
+        std::cout << (currInput == practice_current) << std::endl;
+
         pros::delay(10);
     }
 }
@@ -338,6 +403,7 @@ void initialize_display() {
     
     create_auton_sel_screen();
     create_match_sel_screen();
+    create_practice_screen();
     
     lv_scr_load(auton_sel_screen);
     current_screen = auton_sel_screen;

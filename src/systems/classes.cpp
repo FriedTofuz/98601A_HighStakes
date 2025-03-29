@@ -9,6 +9,7 @@
 #include "pros/rtos.hpp"
 #include <cstdlib>
 #include <cstring>
+#include <cmath>
 
 // Intake
 Intake::Intake(pros::Motor stageOneMotor_, pros::Motor stageTwoMotor_, pros::Optical ringColorSensor_)
@@ -22,7 +23,6 @@ int LadyBrown::currState = 0;
 void Intake::intakeTaskFn(void* param) {
     Intake* self = static_cast<Intake*>(param);
 
-    pros::delay(3000);
     while (true) {
         if (self->intakeRunning && self->allowed) {
             if (self->stageOne) {
@@ -36,32 +36,42 @@ void Intake::intakeTaskFn(void* param) {
                 self->stageTwoMotor.move(self->intakeSpeed);
             }
         } else {
-            if (self->allowed == 0) {
-                // self->setIntakeSpeed(-127);
-                // self->stageOneMotor.move(-127);
-                // self->stageTwoMotor.move(-127);
+
+            if (!self->allowed) {
                 self->stageTwoMotor.move(0);
             } else {
-                self->setIntakeSpeed(0);
                 self->stageOneMotor.move(0);
                 self->stageTwoMotor.move(0);
             }
         }
 
-        if (self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1 && self->stageTwo == true) {
-            pros::delay(300);
-            if (self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1 && self->stageTwo == true) {
+        if (self->jam && self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1 && self->stageTwo == false) {
+            pros::delay(100);
+            if (self->jam && self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1 && self->stageTwo == false) {
                 self->intakeRunning = false;
                 self->stageTwoMotor.move(-127);
-                pros::delay(100);
+                pros::delay(200);
                 self->intakeRunning = true;
             }
         }
-
         pros::delay(10);
     }
 }
 
+void Intake::intakeControl() {
+    // stageTwoMotor.move_absolute(target - stageTwoMotor.get_position(), 1000);
+    // std::cout << kp * (target - stageTwoMotor.get_position() ) << std::endl;
+}
+
+void Intake::nextState() {
+    currState += 1;
+
+    if (currState == 4) {
+        currState = 0;
+    }
+
+    target = states[currState];
+}
 
 void Intake::in(bool stageOneOnly, bool stageTwoOnly) {
     // if (stageOneOnly) {
@@ -76,7 +86,7 @@ void Intake::in(bool stageOneOnly, bool stageTwoOnly) {
 
     intakeSpeed = 127;
     stageOne = stageOneOnly;
-    stageTwo =stageTwoOnly;
+    stageTwo = stageTwoOnly;
     intakeRunning = true; 
 }
 
@@ -96,6 +106,8 @@ void Intake::stop() {
 
 bool Intake::discardRing() {
     ringColorSensor.set_led_pwm(100);
+
+    // return false; // TEMPORARILY DISABLED
 
     if (ringColorSensor.get_proximity() < 180) {
         return false;
@@ -132,6 +144,11 @@ std::string Intake::getColor() {
     } else {
         color = "None";
     }
+
+    if (ringColorSensor.get_proximity() < 180) {
+        color = "None";
+    }
+
     return color;
 }
 

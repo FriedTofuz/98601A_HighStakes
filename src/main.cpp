@@ -1,6 +1,8 @@
 #include "main.h"
 #include "pros/device.hpp"
 #include "pros/misc.h"
+#include "pros/motors.h"
+#include "pros/motors.hpp"
 #include "pros/rtos.hpp"
 #include "systems/classes.hpp"
 #include "systems/hardware.hpp"
@@ -18,6 +20,7 @@ void initialize() {
     ladybrownMotor.set_zero_position(0); 
     leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
     rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
+    stageTwoMotor.set_zero_position(0);
     Intake.allowed = true;
     LadyBrown.currState = 0;
 
@@ -28,11 +31,15 @@ void initialize() {
         Intake.discarding = false;
         while (true) {
             LadyBrown.liftControl();
+            // Intake.intakeControl();
+
             pros::delay(10);
+
             if (Intake.discardRing() && LadyBrown.currState != 1) {
                 if (!Intake.discarding) {
+
                     old = stageTwoMotor.get_position();
-                    delay = .825;
+                    delay = 2;
                     Intake.discarding = true;
                 }
             }
@@ -64,6 +71,8 @@ void autonomous() {
 }
 
 void opcontrol() {
+    Intake.jam = true;
+
     Intake.setIntakeSpeed(127);
     leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
     rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
@@ -73,7 +82,7 @@ void opcontrol() {
         std::string current;
         bool manual = Master.get_digital(pros::E_CONTROLLER_DIGITAL_Y);
 
-        if (speed > 250 || manual) {
+        if (speed > 250 && !manual) {
             current = "Curvature";
 
             int leftY = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
@@ -85,9 +94,6 @@ void opcontrol() {
 
             chassis.arcade(Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), Master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
         }
-
-        std::cout << "Current: " << current << " Speed: " << speed << std::endl;
-        
 
         intakeControl();
 		mogoControl();
