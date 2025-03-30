@@ -83,12 +83,11 @@ void Intake::in(bool stageOneOnly, bool stageTwoOnly) {
     //     stageTwoMotor.move(intakeSpeed);
     // }
     // pros::delay(10);
-    if (!discarding) {
-        intakeSpeed = 127;
-        stageOne = stageOneOnly;
-        stageTwo = stageTwoOnly;
-        intakeRunning = true; 
-    }
+    intakeSpeed = 127;
+    stageOne = stageOneOnly;
+    stageTwo = stageTwoOnly;
+    intakeRunning = true; 
+    
 }
 
 void Intake::out() {

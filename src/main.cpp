@@ -31,36 +31,38 @@ void initialize() {
         Intake.discarding = false;
         while (true) {
             LadyBrown.liftControl();
-            Intake.intakeControl();
+            // Intake.intakeControl();
 
             pros::delay(10);
 
-            // if (Intake.discardRing() && LadyBrown.currState != 1) {
-            //     if (!Intake.discarding) {
-
-            //         old = stageTwoMotor.get_position();
-            //         delay = 0.5; 
-            //         Intake.discarding = true;
-            //     }
-            // }
-
-            // if (Intake.discarding) {
-            //     if (stageTwoMotor.get_position() - old > delay) {
-            //         Intake.allowed = false;
-            //         pros::delay(300);
-            //         Intake.allowed = true;
-            //         Intake.discarding = false;
-            //     }
-            // }
-
-            if (Intake.discardRing()) {
+            if (Intake.discardRing() && LadyBrown.currState != 1) {
                 if (!Intake.discarding) {
+
+                    old = stageTwoMotor.get_position();
+                    delay = 1; 
                     Intake.discarding = true;
-                    Intake.nextState();
-                    pros::delay(2000);
+                }
+            }
+
+            if (Intake.discarding) {
+                if (stageTwoMotor.get_position() - old > delay) {
+                    Intake.allowed = false;
+                    pros::delay(300);
+                    Intake.allowed = true;
                     Intake.discarding = false;
                 }
             }
+
+            std::cout << Intake.discarding << std::endl;
+
+            // if (Intake.discardRing()) {
+            //     if (!Intake.discarding) {
+            //         Intake.discarding = true;
+            //         Intake.nextState();
+            //         pros::delay(2000);
+            //         Intake.discarding = false;
+            //     }
+            // }
         };
     });
 
