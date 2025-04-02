@@ -65,11 +65,13 @@ class LadyBrown {
         void liftControl();
         void setState(int State);
         static int currState;
+        int states[5] = {0, 300, 1000, 2000, 2600};
         bool resetting;
-    private:
+        bool goNext = false;
+        bool moving = false;
         int target = 0;
+    private:
         double kp = .65;
-        int states[4] = {0, 300, 2000, 0};
         pros::Motor ladybrownMotor;
         bool moveIntake;
 };

@@ -1,3 +1,4 @@
+#include "lemlib/chassis/chassis.hpp"
 #include "pros/misc.h"
 #include "pros/rtos.hpp"
 #include "systems/classes.hpp"
@@ -45,10 +46,52 @@ void armControl() {
     }
 }
 
+bool forwards;
+
 // Lady Brown Controls
-void ladybrownControl() { 
-    if (Master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) { 
-        currInput = "Ladybrown";
-        LadyBrown.nextState();
+void ladybrownControl() {
+
+    if (LadyBrown.goNext) {
+        if (forwards) {
+            for (int i = 0; i < sizeof(LadyBrown.states) / sizeof(LadyBrown.states[0]); i++) {
+                if (LadyBrown.states[i] > ladybrownMotor.get_position()) {
+                    LadyBrown.currState = i;
+                    LadyBrown.target = LadyBrown.states[i];
+                    break;
+                }
+            }
+        } else {
+            for (int i = sizeof(LadyBrown.states) / sizeof(LadyBrown.states[0]) - 1; i >= 0; i--) {
+                if (LadyBrown.states[i] < ladybrownMotor.get_position()) {
+                    LadyBrown.currState = i;
+                    LadyBrown.target = LadyBrown.states[i];
+                    break;
+                }
+            }
+        }
+        LadyBrown.goNext = false;
     }
+
+    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+        forwards = true;
+        LadyBrown.moving = true;
+        currInput = "Ladybrown";
+
+        ladybrownMotor.move(127);
+        LadyBrown.goNext = true;
+        
+    } else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+        forwards = false;
+        LadyBrown.moving = true;
+        ladybrownMotor.move(-127);
+
+        LadyBrown.goNext = true;
+
+    } else {
+        LadyBrown.moving = false;
+    }
+
+    std::cout << "Target: " << LadyBrown.target << " Pos: " << ladybrownMotor.get_position() << " Moving: " << LadyBrown.goNext << std::endl;
+
+    pros::delay(10);
 }

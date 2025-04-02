@@ -60,7 +60,6 @@ void Intake::intakeTaskFn(void* param) {
 
 void Intake::intakeControl() {
     stageTwoMotor.move_absolute(target - stageTwoMotor.get_position(), 1000);
-    std::cout << kp * (target - stageTwoMotor.get_position() ) << std::endl;
 }
 
 void Intake::nextState() {
@@ -179,30 +178,34 @@ void MogoMech::toggle() {
 LadyBrown::LadyBrown(pros::Motor ladybrownMotor_) 
     : ladybrownMotor(ladybrownMotor_) {}
 void LadyBrown::liftControl() {
-    if (!resetting) {
-        if (moveIntake) {
-            Intake.out();
-            ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
-            pros::delay(500);
-            Intake.stop();
-            moveIntake = false;
-        } else {
-            ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
-            // if (currState == 3) {
-            //     ladybrownMotor.move(-127);
-            //     pros::delay(50);
-            //     ladybrownMotor.move(0);
-            //     ladybrownMotor.set_zero_position(0);
-            //     nextState();
-            // }
-        }
-    } else {
-        ladybrownMotor.move(-127);
-        pros::delay(900);
-        ladybrownMotor.move(0);
-        pros::delay(300);
-        ladybrownMotor.set_zero_position(0);
-        resetting = false;
+//     // if (!resetting) {
+//     //     if (moveIntake) {
+//     //         Intake.out();
+//     //         ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
+//     //         pros::delay(500); 
+//     //         Intake.stop();
+//     //         moveIntake = false;
+//     //     } else {
+//     //         ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
+//     //         // if (currState == 3) {
+//     //         //     ladybrownMotor.move(-127);
+//     //         //     pros::delay(50);
+//     //         //     ladybrownMotor.move(0);
+//     //         //     ladybrownMotor.set_zero_position(0);
+//     //         //     nextState();
+//     //         // }
+//     //     }
+//     // } else {
+//     //     ladybrownMotor.move(-127);
+//     //     pros::delay(900);
+//     //     ladybrownMotor.move(0);
+//     //     pros::delay(300);
+//     //     ladybrownMotor.set_zero_position(0);
+//     //     resetting = false;
+//     }
+
+    if (!moving) {
+        ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
     }
 }
 void LadyBrown::nextState() {

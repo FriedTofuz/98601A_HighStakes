@@ -53,8 +53,6 @@ void initialize() {
                 }
             }
 
-            std::cout << Intake.discarding << std::endl;
-
             // if (Intake.discardRing()) {
             //     if (!Intake.discarding) {
             //         Intake.discarding = true;

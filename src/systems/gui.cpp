@@ -316,7 +316,6 @@ void lvgl_display_task_fn(void* param) {
         std::string inputs[5] = {"Clamp", "Doinker", "Ladybrown", "Intake", "Outtake"};
 
         if (practice) {
-            std::cout << "practice";
             if (practice_input == "") {
                 lv_label_set_text(practice_label, practice_current.c_str());
             } else {
@@ -335,8 +334,6 @@ void lvgl_display_task_fn(void* param) {
         } else {
             practice_current = inputs[getRandom(0, 4)];
         }
-
-        std::cout << (currInput == practice_current) << std::endl;
 
         pros::delay(10);
     }
