@@ -91,7 +91,5 @@ void ladybrownControl() {
         LadyBrown.moving = false;
     }
 
-    std::cout << "Target: " << LadyBrown.target << " Pos: " << ladybrownMotor.get_position() << " Moving: " << LadyBrown.goNext << std::endl;
-
     pros::delay(10);
 }
