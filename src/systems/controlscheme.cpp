@@ -13,7 +13,7 @@
 
 // Mogo Mech Controls
 void mogoControl() {
-    if (Master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
+    if (Master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
         currInput = "Mogo";
         MogoMech.toggle();
     }
