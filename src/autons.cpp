@@ -372,5 +372,4 @@ void skills() {
     chassis.moveToPoint(62, 0,1000, {.forwards=false}, false);
     MogoMech.release();
     chassis.moveToPoint(30, -20, 1000);
-
 }

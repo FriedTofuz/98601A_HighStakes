@@ -73,8 +73,7 @@ void autonomous() {
     Intake.setIntakeSpeed(127);
     leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
     rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
-    chassis.turnToHeading(90, 2000);
-    // runAuton();
+    runAuton();
     
 }
 

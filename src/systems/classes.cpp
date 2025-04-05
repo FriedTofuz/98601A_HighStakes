@@ -208,20 +208,8 @@ void LadyBrown::liftControl() {
         ladybrownMotor.move(kp * (target - ladybrownMotor.get_position()));
     }
 }
-void LadyBrown::nextState() {
-    currState += 1;
 
-    if (currState == 2) {
-        moveIntake = true;
-    }
-
-    if (currState == 3) {
-        currState = 0;
-        resetting = true;
-    }
-
-    target = states[currState];
-}
-void LadyBrown::setState(int State) {
-    target = states[State];
+void LadyBrown::setState(int state) {
+    target = states[state];
+    currState = state;
 }
