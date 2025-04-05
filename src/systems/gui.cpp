@@ -14,9 +14,6 @@
 #include "liblvgl/widgets/lv_btnmatrix.h"
 #include <cmath>
 #include <atomic>
-#include <iterator>
-#include <ostream>
-#include <random>
 #include "autons.hpp"
 
 static lv_obj_t *auton_sel_screen = nullptr;

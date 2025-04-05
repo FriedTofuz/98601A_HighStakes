@@ -1,7 +1,5 @@
 #include "main.h"
-#include "pros/device.hpp"
 #include "pros/misc.h"
-#include "pros/motors.h"
 #include "pros/motors.hpp"
 #include "pros/rtos.hpp"
 #include "systems/classes.hpp"
