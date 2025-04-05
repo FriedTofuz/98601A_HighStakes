@@ -50,11 +50,17 @@ bool forwards;
 
 // Lady Brown Controls
 void ladybrownControl() {
-
     if (LadyBrown.goNext) {
         if (forwards) {
             for (int i = 0; i < sizeof(LadyBrown.states) / sizeof(LadyBrown.states[0]); i++) {
                 if (LadyBrown.states[i] > ladybrownMotor.get_position()) {
+
+                    if (i == 2 && ladybrownMotor.get_position() < 700 && LadyBrown.currState != 1) { // qol for sai bc he has a skill issue
+                        LadyBrown.currState = 1;
+                        LadyBrown.target = LadyBrown.states[1];
+                        break;
+                    }
+
                     LadyBrown.currState = i;
                     LadyBrown.target = LadyBrown.states[i];
                     break;
