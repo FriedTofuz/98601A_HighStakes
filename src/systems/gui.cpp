@@ -60,6 +60,14 @@ lv_obj_t * heading_meter;
 lv_meter_indicator_t * indic;
 static bool meter_initialized = false;
 
+static lv_style_t btn_pressed_style;
+
+static void initialize_styles() {
+    lv_style_init(&btn_pressed_style);
+    lv_style_set_bg_color(&btn_pressed_style, lv_palette_main(LV_PALETTE_RED)); // Set button color to red
+    lv_style_set_bg_opa(&btn_pressed_style, LV_OPA_COVER);
+}
+
 static void create_confirmation_screen(void);
 
 int getRandom(int min, int max) {
@@ -200,6 +208,8 @@ static void create_auton_sel_screen() {
     lv_obj_align(auton_btnm, LV_ALIGN_CENTER, 0, -12);
     lv_obj_add_event_cb(auton_btnm, event_handler, LV_EVENT_ALL, NULL);
 
+    lv_obj_add_style(auton_btnm, &btn_pressed_style, LV_PART_ITEMS | LV_STATE_CHECKED); // Apply style to buttons when active
+
     auton_coordinates_label = lv_label_create(auton_sel_screen);
     lv_obj_align(auton_coordinates_label, LV_ALIGN_BOTTOM_LEFT, 10, -10);
 }
@@ -218,6 +228,8 @@ static void create_match_sel_screen() {
 
     lv_obj_align(match_btnm, LV_ALIGN_TOP_MID, 0, 18);
     lv_obj_add_event_cb(match_btnm, event_handler, LV_EVENT_ALL, NULL);
+
+    lv_obj_add_style(match_btnm, &btn_pressed_style, LV_PART_ITEMS | LV_STATE_CHECKED); // Apply style to buttons when active
 
     lv_obj_t * confirm_btn = lv_btn_create(match_sel_screen);
     lv_obj_t * confirm_btn_label = lv_label_create(confirm_btn);
@@ -395,6 +407,8 @@ static void create_confirmation_screen() {
 void initialize_display() {
     lv_init();
     
+    initialize_styles(); // Initialize styles
+
     create_auton_sel_screen();
     create_match_sel_screen();
     create_practice_screen();
