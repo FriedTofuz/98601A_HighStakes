@@ -60,18 +60,40 @@ lv_obj_t * heading_meter;
 lv_meter_indicator_t * indic;
 static bool meter_initialized = false;
 
-static lv_style_t btn_pressed_style;
-
-static void initialize_styles() {
-    lv_style_init(&btn_pressed_style);
-    lv_style_set_bg_color(&btn_pressed_style, lv_palette_main(LV_PALETTE_RED)); // Set button color to red
-    lv_style_set_bg_opa(&btn_pressed_style, LV_OPA_COVER);
-}
-
 static void create_confirmation_screen(void);
 
 int getRandom(int min, int max) {
     return min + rand() % (max - min + 1);
+}
+
+lv_palette_t getColorPalette() {
+    int color = getRandom(1, 6);
+
+    if (color == 1) {
+        return LV_PALETTE_RED;
+    } else if (color == 2) {
+        return LV_PALETTE_BLUE;
+    } else if (color == 3) {
+        return LV_PALETTE_GREEN;
+    } else if (color == 4) {
+        return LV_PALETTE_YELLOW;
+    } else if (color == 5) {
+        return LV_PALETTE_ORANGE;
+    } else if (color == 6) {
+        return LV_PALETTE_PURPLE;
+    }
+
+    return LV_PALETTE_GREY; // Default case
+}
+
+int color = getColorPalette();
+
+static lv_style_t btn_pressed_style;
+
+static void initialize_styles() {
+    lv_style_init(&btn_pressed_style);
+    lv_style_set_bg_color(&btn_pressed_style, lv_palette_main(getColorPalette())); // Set button color to red
+    lv_style_set_bg_opa(&btn_pressed_style, LV_OPA_COVER);
 }
 
 static const char * auton_sel_map[] = {"Match Auton", "Skills Auton", "Practice", ""};
