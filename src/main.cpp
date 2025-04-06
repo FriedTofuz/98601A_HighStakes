@@ -73,6 +73,8 @@ void autonomous() {
     Intake.setIntakeSpeed(127);
     leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
     rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
+    Intake.jam = true;
+    Intake.allowed = true;
     runAuton();
     
 }

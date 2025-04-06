@@ -46,7 +46,7 @@ void Intake::intakeTaskFn(void* param) {
         }
 
         if (self->jam && self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1 && self->stageTwo == false) {
-            pros::delay(100);
+            pros::delay(50);
             if (self->jam && self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1 && self->stageTwo == false) {
                 self->intakeRunning = false;
                 self->stageTwoMotor.move(-127);
