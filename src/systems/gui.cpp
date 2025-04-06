@@ -4,6 +4,8 @@
 #include "liblvgl/misc/lv_color.h"
 #include "liblvgl/misc/lv_style.h"
 #include "liblvgl/widgets/lv_label.h"
+#include "pros/abstract_motor.hpp"
+#include "pros/misc.hpp"
 #include "pros/rtos.hpp"
 #include "systems/hardware.hpp"
 #include "liblvgl/core/lv_disp.h"
@@ -13,6 +15,7 @@
 #include "liblvgl/misc/lv_area.h"
 #include "liblvgl/widgets/lv_btnmatrix.h"
 #include <cmath>
+#include <cstdlib> 
 #include <atomic>
 #include "autons.hpp"
 
@@ -63,6 +66,8 @@ static bool meter_initialized = false;
 static void create_confirmation_screen(void);
 
 int getRandom(int min, int max) {
+    srand(ladybrownMotor.get_current_draw());
+    std::cout << ladybrownMotor.get_current_draw() << std::endl;
     return min + rand() % (max - min + 1);
 }
 
