@@ -32,8 +32,10 @@ void ringSideBlue() {
     chassis.moveToPoint(40, -4, 1000);
     chassis.turnToHeading(135, 800);
     chassis.moveToPoint(52, -20, 1000);
-    chassis.moveToPoint(0, 25, 1000, {.forwards=false});
-    LadyBrown.setState(2);
+    chassis.swingToHeading(150, lemlib::DriveSide::LEFT, 500);
+    chassis.swingToHeading(135, lemlib::DriveSide::LEFT, 500);
+    // chassis.moveToPoint(-40, -4, 1000, {.forwards=false});
+    // chassis.moveToPoint(-48, -13, 1000);
 
 }
 
@@ -41,11 +43,11 @@ void ringSideBlue() {
 void ringSideRed() {
     chassis.setPose(-12.5, -12,-180);
     LadyBrown.setState(1);
-    chassis.turnToHeading(-230,400, {}, false);
     Intake.in(false, false);
     MogoMech.release();
-    chassis.moveToPoint(-6.5, -16, 1000, {}, false);
+    chassis.moveToPoint(-6.25, -17.25, 1000, {}, false);
     Intake.stop();
+    chassis.turnToHeading(-225,400, {});
     LadyBrown.setState(4);
     pros::delay(800); 
     chassis.moveToPoint(-19, 21, 1500, {.forwards=false, .maxSpeed=75}, false); //move to mogo
@@ -54,17 +56,18 @@ void ringSideRed() {
     pros::delay(200);
     chassis.turnToPoint(-28, 31, 800, {.earlyExitRange=30});
     Intake.in(false, false);
-    chassis.moveToPoint(-27, 33, 2000); // eat first ring
+    chassis.moveToPoint(-26, 30, 2000); // eat first ring
     pros::delay(500);
-    chassis.moveToPoint(-47, 36, 2000);
+    chassis.moveToPoint(-48, 35, 2000);
     chassis.moveToPoint(-21.5,21,1300,{.forwards = false}, false);
-    chassis.moveToPoint(-45,15.75,2000, {}, false); //eat ring (by itself in middle)
+    chassis.moveToPoint(-40.5,19,2000, {}, false); //eat ring (by itself in middle)
     chassis.moveToPoint(-21.5,21,1300,{.forwards = false}, false);
-    chassis.moveToPoint(-40, -4, 1000);
+    chassis.moveToPoint(-40, -10, 1500);
     chassis.turnToHeading(-135, 800);
-    chassis.moveToPoint(-53, -18, 1000);
-    chassis.moveToPoint(-3, 27, 1000, {.forwards=false});
-    LadyBrown.setState(2);
+    chassis.moveToPoint(-57, -21, 1000, {.maxSpeed=60});
+    chassis.moveToPoint(-36, -4, 1000, {.forwards=false});
+    chassis.moveToPoint(-50, -15, 1000);
+
 
 }
 
