@@ -13,7 +13,7 @@ void ringSideBlue() {
     chassis.turnToHeading(230,400, {}, false);
     Intake.in(false, false);
     MogoMech.release();
-    chassis.moveToPoint(7.5, -12, 1000, {.minSpeed = 110}, false);
+    chassis.moveToPoint(9, -15, 1000, {}, false);
     Intake.stop();
     LadyBrown.setState(4);
     pros::delay(800); 
