@@ -71,38 +71,47 @@ void ringSideRed() {
 
 }
 
-//
+// progress
 void goalSideBlue() {
-    Intake.allowed = true;
+Intake.jam = false;
     Intake.stop();
-    chassis.setPose(.3,0,0);
+    chassis.setPose(25, 9.5,-46);
     MogoMech.release();
     Intake.setIntakeSpeed(127);
     Intake.in(true, false, 0);
-    chassis.moveToPoint(0, 32.5, 800, {.minSpeed=110},false);
+    chassis.moveToPoint(0, 35, 800, {.minSpeed=110},false);
+    chassis.turnToHeading(-46, 500);
     MogoArm.down();
-    chassis.moveToPoint(0, 18, 3000, {.forwards=false}, false);
+    Intake.jam=true;
+    chassis.moveToPoint(10, 18, 3000, {.forwards=false}, false);
     MogoArm.up();
     pros::delay(400);
-    chassis.moveToPoint(28, 45, 2000, {.forwards=false, .maxSpeed=80}, false);
+    chassis.moveToPoint(15, 48, 2000, {.forwards=false, .maxSpeed=80}, false);
     MogoMech.clamp();
+    pros::delay(200);
+    Intake.in(false, false, 350);
     pros::delay(500);
-    Intake.in(false, false, 0);
-    chassis.turnToHeading(-90, 1000, {.earlyExitRange=20}, false);
     MogoMech.release();
-    chassis.moveToPoint(-11, 36, 2000, {.forwards=false, .maxSpeed=70}, false); //second mogo
+    chassis.turnToHeading(0, 700, {});
+    chassis.moveToPoint(-13, 36, 2000, {.forwards=false, .maxSpeed=70}, false); //second mogo
     MogoMech.clamp();
     pros::delay(300);
-    chassis.moveToPoint(22, 13, 1200, {.minSpeed=110, .earlyExitRange=10});
-    chassis.turnToHeading(235, 700, {}, false);
-    MogoArm.down();
-    chassis.moveToPoint(8, -6.5, 1800, {}, false);
-    chassis.turnToHeading(320, 2000, {.maxSpeed=70}, false);
-    chassis.moveToPoint(0, 24, 1500, {.minSpeed=100, .earlyExitRange=15});
-    MogoArm.up();
+    Intake.in(false, false, 0);
+    
+    chassis.moveToPoint(25 , 13, 2000, {.maxSpeed=100});
+    chassis.turnToHeading(149, 400);
+    chassis.moveToPoint(28, 10, 1000, {.maxSpeed=60});
+    chassis.moveToPoint(25 , 13, 1500, {.forwards=false, .maxSpeed=70});
+    LadyBrown.setState(1);
+    Intake.in(false, false, 0);
+    pros::delay(700);
+    chassis.turnToHeading(290, 1000);
+    chassis.moveToPoint(-16, 27, 2000);
+    chassis.turnToHeading(241, 500);
+    LadyBrown.setState(3);
 }
 
-//progress
+// DONE 9pts
 void goalSideRed() {
     Intake.jam = false;
     Intake.stop();
