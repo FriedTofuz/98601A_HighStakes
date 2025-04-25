@@ -9,7 +9,7 @@ extern std::string currInput;
 class Intake {
     public:
         Intake(pros::Motor stageOneMotor, pros::Motor stageTwoMotor, pros::Optical ringColorSensor);
-        void in(bool stageOneOnly, bool stageTwoOnly);
+        void in(bool stageOneOnly, bool stageTwoOnly, int timer);
         void out();
         void stop();
         void setIntakeSpeed(int voltage);
@@ -35,6 +35,7 @@ class Intake {
         pros::Motor stageTwoMotor;
         bool sortNeeded;
         int intakeSpeed;
+        int timer;
         std::string color;
 };
 

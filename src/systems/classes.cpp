@@ -72,7 +72,7 @@ void Intake::nextState() {
     target = states[currState];
 }
 
-void Intake::in(bool stageOneOnly, bool stageTwoOnly) {
+void Intake::in(bool stageOneOnly, bool stageTwoOnly, int timer) {
     // if (stageOneOnly) {
     //     stageOneMotor.move(intakeSpeed);
     // } else if (stageTwoOnly) {
@@ -86,6 +86,10 @@ void Intake::in(bool stageOneOnly, bool stageTwoOnly) {
     stageOne = stageOneOnly;
     stageTwo = stageTwoOnly;
     intakeRunning = true; 
+    if (timer > 0) {
+        pros::delay(timer);
+        intakeRunning = false;
+    }
     
 }
 
