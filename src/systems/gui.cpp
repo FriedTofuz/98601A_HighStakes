@@ -67,7 +67,6 @@ static void create_confirmation_screen(void);
 
 int getRandom(int min, int max) {
     srand(ladybrownMotor.get_current_draw());
-    std::cout << ladybrownMotor.get_current_draw() << std::endl;
     return min + rand() % (max - min + 1);
 }
 

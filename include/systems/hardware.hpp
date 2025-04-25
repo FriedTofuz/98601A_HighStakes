@@ -98,7 +98,7 @@ inline lemlib::ExpoDriveCurve throttleCurve(
 inline lemlib::ExpoDriveCurve steerCurve(
     5,    // joystick deadband out of 127
     40,   // minimum output where drivetrain will move out of 127
-    1.04 // expo curve gain
+    1.1 // expo curve gain
 );
 
 // ODOMETRY

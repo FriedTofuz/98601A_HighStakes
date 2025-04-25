@@ -1,5 +1,6 @@
 #include "lemlib/chassis/chassis.hpp"
 #include "pros/misc.h"
+#include "pros/rtos.h"
 #include "pros/rtos.hpp"
 #include "systems/classes.hpp"
 #include "systems/hardware.hpp"
@@ -48,6 +49,17 @@ void armControl() {
 
 bool forwards;
 
+void resetLadyBrownTask() {
+    LadyBrown.resetting = true;
+    LadyBrown.moving = true;
+    ladybrownMotor.move(-127);
+    pros::delay(1000);
+    ladybrownMotor.set_zero_position(-165);
+    ladybrownMotor.move_velocity(0);
+    LadyBrown.resetting = false;
+
+}
+
 // Lady Brown Controls
 void ladybrownControl() {
     if (LadyBrown.goNext) {
@@ -90,12 +102,20 @@ void ladybrownControl() {
         forwards = false;
         LadyBrown.moving = true;
         ladybrownMotor.move(-127);
-
+        
         LadyBrown.goNext = true;
 
     } else {
-        LadyBrown.moving = false;
+        if (!LadyBrown.resetting) {
+            LadyBrown.moving = false;
+        }
     }
+
+    if (Master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+        pros::Task ladybrownTask(resetLadyBrownTask);
+    }
+
+    std::cout << ladybrownMotor.get_position() << " " << LadyBrown.currState << std::endl;
 
     pros::delay(10);
 }
