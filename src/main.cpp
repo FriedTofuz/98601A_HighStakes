@@ -21,6 +21,8 @@ void initialize() {
     stageTwoMotor.set_zero_position(0);
     Intake.allowed = true;
     LadyBrown.currState = 0;
+    Master.clear();
+
 
     //Lambda functions (background functions)
     pros::Task backgroundTasks([]{
@@ -45,10 +47,46 @@ void initialize() {
             if (Intake.discarding) {
                 if (stageTwoMotor.get_position() - old > delay) {
                     Intake.allowed = false;
-                    pros::delay(300);
+                    pros::delay(30);
                     Intake.allowed = true;
                     Intake.discarding = false;
                 }
+            }
+
+            int overheat_count = 0;
+            std::string motor = "";
+
+            if (stageOneMotor.is_over_temp()) {
+                overheat_count++;
+                motor = "Stage 1";
+            }
+
+            if (stageTwoMotor.is_over_temp()) {
+                overheat_count++;
+                motor = "Stage 2";
+            }
+
+            if (ladybrownMotor.is_over_temp()) {
+                overheat_count++;
+                motor = "Lady Brown";
+            }
+
+            if (leftMotors.is_over_temp()) {
+                overheat_count++;
+                motor = "Left Motors";
+            }
+
+            if (rightMotors.is_over_temp()) {
+                overheat_count++;
+                motor = "Right Motors";
+            }
+
+            if (overheat_count > 1) {
+                Master.set_text(1, 0, "Multiple OH            ");
+            }
+
+            if (overheat_count == 1) {
+                Master.set_text(1, 0, motor + " OH          ");
             }
 
             // if (Intake.discardRing()) {
@@ -76,7 +114,6 @@ void autonomous() {
     Intake.jam = true;
     Intake.allowed = true;
     runAuton();
-    
 }
 
 void opcontrol() {
@@ -95,7 +132,7 @@ void opcontrol() {
             current = "Curvature";
 
             int leftY = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-            int rightX = Master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+            int rightX = Master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) * 1.1;
 
             chassis.curvature(leftY, rightX);
         } else {
@@ -103,6 +140,8 @@ void opcontrol() {
 
             chassis.arcade(Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), Master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
         }
+
+        Master.set_text(1, 0, current + "      ");
 
         intakeControl();
 		mogoControl();
