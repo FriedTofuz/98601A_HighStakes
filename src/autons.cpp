@@ -301,77 +301,119 @@ void goalSideBlueAWP() {
 }
 
 void skills() {
-    // first quadrant 
-    Intake.allowed = true;
-    chassis.setPose(-11.5,-1.5,51);
-    Intake.setIntakeSpeed(127);
-    MogoMech.release();
-    LadyBrown.setState(2);
-    pros::delay(750);
-    LadyBrown.setState(0);
-    chassis.moveToPoint(-26, -16, 1000, {.forwards=false, .maxSpeed=95}, false);
-    MogoMech.clamp();
-    pros::delay(300);
-    chassis.turnToHeading(170,400, {.earlyExitRange=10}); //face 1st ring
-    Intake.in(false, false, 0);
-    chassis.moveToPoint(-28,-26,800, {.earlyExitRange=10}); //move to first ring, eat first ring
-    chassis.turnToHeading(210,400, {.earlyExitRange=10}); // turn to far quadrant ring (right)
-    chassis.moveToPoint(-43.5,-76,2000, {.maxSpeed=100}); // move to far quadrant ring (right)
-    chassis.turnToHeading(360,600, {.earlyExitRange=30}); // turn to face 3rd ring
-    LadyBrown.setState(1); 
-    chassis.moveToPoint(-37,-61,700, {}); // go toward the thing
-    chassis.turnToHeading(265,600,{.earlyExitRange=25});
-    chassis.moveToPoint(-56,-56.5,1500, {}, false);
-    Intake.setIntakeSpeed(-127);
-    pros::delay(30);
-    LadyBrown.setState(2); // put down lady brown on wall
-    pros::delay(100);
-    Intake.setIntakeSpeed(127);
-    pros::delay(700);
-    chassis.moveToPoint(-43.5,-54,1000, {.forwards=false, .earlyExitRange=10}); //move back out after wall
-    chassis.turnToHeading(360,600, {.earlyExitRange=30}); //turn to face 3 rings in a row
-    LadyBrown.setState(0);
-    chassis.moveToPoint(-46, -20, 2000, {.minSpeed=80, .earlyExitRange=20});
-    chassis.moveToPoint(-46,-4,2000, {.maxSpeed=40}); //move forward to eat 3 rings in a row
-    chassis.swingToHeading(150, lemlib::DriveSide::LEFT, 1700, {.direction=lemlib::AngularDirection::CCW_COUNTERCLOCKWISE, .maxSpeed=55});
-    chassis.moveToPoint(-63, -13, 1500);
-    pros::delay(500);
-    chassis.moveToPoint(-68, 0,1000, {.forwards=false}, false);
-    MogoMech.release();
 
-    chassis.moveToPoint(-25, -8, 1500);
+    chassis.setPose(0,0,0);
+    LadyBrown.setState(1);
+    pros::delay(100);
+    Intake.in(false, false, 0);
+    pros::delay(300);
     Intake.stop();
-    chassis.turnToHeading(-90, 800);
-    // second quadrant 
-
-    chassis.moveToPoint(26, -3, 2500, {.forwards=false, .maxSpeed=75}, false);
-    MogoMech.clamp();
-    pros::delay(300);
-    chassis.turnToHeading(-180,500, {.earlyExitRange=10}); //face 1st ring
-    Intake.in(false, false, 0);
-    chassis.moveToPoint(22,-26,800, {}); //move to first ring, eat first ring
-    chassis.turnToHeading(-225,400, {.earlyExitRange=10}); // turn to far quadrant ring (right)
-    chassis.moveToPoint(43.5,-76,2000, {.maxSpeed=100}); // move to far quadrant ring (right)
-    chassis.turnToHeading(-360,600, {.earlyExitRange=30}); // turn to face 3rd ring
-    LadyBrown.setState(1); 
-    chassis.moveToPoint(46,-55.5,800, {}); // go toward the thing
-    chassis.turnToHeading(-265,600,{.earlyExitRange=25});
-    chassis.moveToPoint(58,-53,2000, {}, false);
-    Intake.setIntakeSpeed(-127);
-    pros::delay(30);
-    LadyBrown.setState(2); // put down lady brown on wall
-    pros::delay(100);
-    Intake.setIntakeSpeed(127);
-    pros::delay(800);
-    chassis.moveToPoint(47,-54,1000, {.forwards=false, .earlyExitRange=10}); //move back out after wall
-    chassis.turnToHeading(360,600, {.earlyExitRange=30}); //turn to face 3 rings in a row
-    LadyBrown.setState(0);
-    chassis.moveToPoint(52, -20, 2000, {.minSpeed=80, .earlyExitRange=20});
-    chassis.moveToPoint(52,-3,2000, {.maxSpeed=40}); //move forward to eat 3 rings in a row
-    chassis.swingToHeading(150, lemlib::DriveSide::RIGHT, 1500, {.direction=lemlib::AngularDirection::CW_CLOCKWISE, .maxSpeed=60});
-    chassis.moveToPoint(62, -13, 1500);
     pros::delay(500);
-    chassis.moveToPoint(62, 0,1000, {.forwards=false}, false);
+    LadyBrown.setState(5);
+    pros::delay(1500);
+    Intake.in(false, false, 0);
+    chassis.moveToPoint(-3, -17, 1500, {.forwards=false}, false);
+    MogoMech.clamp();
+    chassis.turnToHeading(137, 1000);
+    chassis.moveToPoint(8, -30, 1500);
+    chassis.turnToHeading(170, 1000);
+    chassis.moveToPoint(29, -80, 1500);
+    chassis.moveToPoint(12, -16, 1500);
+    chassis.turnToHeading(224, 1000);
+    LadyBrown.setState(1);
+    chassis.moveToPoint(3, -70, 1500);
+    pros::delay(300);
+    Intake.stop();
+    pros::delay(300);
+    LadyBrown.setState(5);
+    pros::delay(2000);
+    LadyBrown.setState(4);
+    Intake.in(false, false, 0);
+    chassis.moveToPoint(13, -60, 1500, {.forwards=false});
+    chassis.turnToHeading(320, 1000);
+    chassis.moveToPoint(-20, -26, 4000, {.maxSpeed=70});
+    chassis.turnToHeading(195, 1000);
+    chassis.moveToPoint(-29, -33, 1500);
+    chassis.turnToHeading(93, 1000);
+    chassis.moveToPoint(-37.25, -33.75, 1500, {.forwards=false});
+    pros::delay(300);
     MogoMech.release();
-    chassis.moveToPoint(30, -20, 1000);
+    chassis.moveToPoint(14, -3, 1500);
+
+
+
+
+    // first quadrant 
+    // Intake.allowed = true;
+    // chassis.setPose(-11.5,-1.5,51);
+    // Intake.setIntakeSpeed(127);
+    // MogoMech.release();
+    // LadyBrown.setState(2);
+    // pros::delay(750);
+    // LadyBrown.setState(0);
+    // chassis.moveToPoint(-26, -16, 1000, {.forwards=false, .maxSpeed=95}, false);
+    // MogoMech.clamp();
+    // pros::delay(300);
+    // chassis.turnToHeading(170,400, {.earlyExitRange=10}); //face 1st ring
+    // Intake.in(false, false, 0);
+    // chassis.moveToPoint(-28,-26,800, {.earlyExitRange=10}); //move to first ring, eat first ring
+    // chassis.turnToHeading(210,400, {.earlyExitRange=10}); // turn to far quadrant ring (right)
+    // chassis.moveToPoint(-43.5,-76,2000, {.maxSpeed=100}); // move to far quadrant ring (right)
+    // chassis.turnToHeading(360,600, {.earlyExitRange=30}); // turn to face 3rd ring
+    // LadyBrown.setState(1); 
+    // chassis.moveToPoint(-37,-61,700, {}); // go toward the thing
+    // chassis.turnToHeading(265,600,{.earlyExitRange=25});
+    // chassis.moveToPoint(-56,-56.5,1500, {}, false);
+    // Intake.setIntakeSpeed(-127);
+    // pros::delay(30);
+    // LadyBrown.setState(2); // put down lady brown on wall
+    // pros::delay(100);
+    // Intake.setIntakeSpeed(127);
+    // pros::delay(700);
+    // chassis.moveToPoint(-43.5,-54,1000, {.forwards=false, .earlyExitRange=10}); //move back out after wall
+    // chassis.turnToHeading(360,600, {.earlyExitRange=30}); //turn to face 3 rings in a row
+    // LadyBrown.setState(0);
+    // chassis.moveToPoint(-46, -20, 2000, {.minSpeed=80, .earlyExitRange=20});
+    // chassis.moveToPoint(-46,-4,2000, {.maxSpeed=40}); //move forward to eat 3 rings in a row
+    // chassis.swingToHeading(150, lemlib::DriveSide::LEFT, 1700, {.direction=lemlib::AngularDirection::CCW_COUNTERCLOCKWISE, .maxSpeed=55});
+    // chassis.moveToPoint(-63, -13, 1500);
+    // pros::delay(500);
+    // chassis.moveToPoint(-68, 0,1000, {.forwards=false}, false);
+    // MogoMech.release();
+
+    // chassis.moveToPoint(-25, -8, 1500);
+    // Intake.stop();
+    // chassis.turnToHeading(-90, 800);
+    // // second quadrant 
+
+    // chassis.moveToPoint(26, -3, 2500, {.forwards=false, .maxSpeed=75}, false);
+    // MogoMech.clamp();
+    // pros::delay(300);
+    // chassis.turnToHeading(-180,500, {.earlyExitRange=10}); //face 1st ring
+    // Intake.in(false, false, 0);
+    // chassis.moveToPoint(22,-26,800, {}); //move to first ring, eat first ring
+    // chassis.turnToHeading(-225,400, {.earlyExitRange=10}); // turn to far quadrant ring (right)
+    // chassis.moveToPoint(43.5,-76,2000, {.maxSpeed=100}); // move to far quadrant ring (right)
+    // chassis.turnToHeading(-360,600, {.earlyExitRange=30}); // turn to face 3rd ring
+    // LadyBrown.setState(1); 
+    // chassis.moveToPoint(46,-55.5,800, {}); // go toward the thing
+    // chassis.turnToHeading(-265,600,{.earlyExitRange=25});
+    // chassis.moveToPoint(58,-53,2000, {}, false);
+    // Intake.setIntakeSpeed(-127);
+    // pros::delay(30);
+    // LadyBrown.setState(2); // put down lady brown on wall
+    // pros::delay(100);
+    // Intake.setIntakeSpeed(127);
+    // pros::delay(800);
+    // chassis.moveToPoint(47,-54,1000, {.forwards=false, .earlyExitRange=10}); //move back out after wall
+    // chassis.turnToHeading(360,600, {.earlyExitRange=30}); //turn to face 3 rings in a row
+    // LadyBrown.setState(0);
+    // chassis.moveToPoint(52, -20, 2000, {.minSpeed=80, .earlyExitRange=20});
+    // chassis.moveToPoint(52,-3,2000, {.maxSpeed=40}); //move forward to eat 3 rings in a row
+    // chassis.swingToHeading(150, lemlib::DriveSide::RIGHT, 1500, {.direction=lemlib::AngularDirection::CW_CLOCKWISE, .maxSpeed=60});
+    // chassis.moveToPoint(62, -13, 1500);
+    // pros::delay(500);
+    // chassis.moveToPoint(62, 0,1000, {.forwards=false}, false);
+    // MogoMech.release();
+    // chassis.moveToPoint(30, -20, 1000);
 }
