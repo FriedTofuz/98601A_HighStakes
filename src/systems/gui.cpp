@@ -136,11 +136,14 @@ static void event_handler(lv_event_t * e) {
 
             if(strcmp(label, "Confirm") == 0) {
                 auton_sel = "Match Auton";
+                std::string disp_team = "";
 
                 if(lv_btnmatrix_has_btn_ctrl(match_btnm, 0, LV_BTNMATRIX_CTRL_CHECKED)) {
                   team = "Red";
+                  disp_team = "R ";
                 } else if (lv_btnmatrix_has_btn_ctrl(match_btnm, 1, LV_BTNMATRIX_CTRL_CHECKED)) {
-                  team = "Blue";
+                    disp_team = "B ";
+                    team = "Blue";
                 }
 
                 if(lv_btnmatrix_has_btn_ctrl(match_btnm, 2, LV_BTNMATRIX_CTRL_CHECKED)) {
@@ -149,15 +152,22 @@ static void event_handler(lv_event_t * e) {
                   side = "Goal Side";
                 }
 
+                std::string disp_wp = "";
+
                 if(lv_btnmatrix_has_btn_ctrl(match_btnm, 4, LV_BTNMATRIX_CTRL_CHECKED)) {
-                  wp = "Yes";
+                    wp = "Yes";
+                    disp_wp = " WP";
                 } else {
-                  wp = "No";
+                    disp_wp = "";
+                    wp = "No";
                 }
                 
                 if (team == nullptr || side == nullptr || wp == nullptr) {
                     return;
                 }
+
+                std::string display_text = disp_team + side + disp_wp; 
+                Master.set_text(1, 0, display_text.c_str());
                 
                 create_confirmation_screen();
                 lv_scr_load_anim(confirmation_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, false);

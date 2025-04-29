@@ -141,7 +141,7 @@ void opcontrol() {
             chassis.arcade(Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), Master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
         }
 
-        Master.set_text(1, 0, current + "      ");
+        Master.set_text(1, 0, current + "                        ");
 
         intakeControl();
 		mogoControl();
