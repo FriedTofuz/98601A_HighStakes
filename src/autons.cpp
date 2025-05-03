@@ -309,31 +309,33 @@ void skills() {
     pros::delay(300);
     Intake.stop();
     pros::delay(500);
+    LadyBrown.setState(4);
+    pros::delay(1500);
+    Intake.in(false, false, 0);
+    chassis.moveToPoint(-2.75, -19, 1500, {.forwards=false, .maxSpeed=70}, false); //first mogo 
+    LadyBrown.setState(0);
+    MogoMech.clamp();
+    chassis.turnToHeading(137, 1000); //first ring
+    chassis.moveToPoint(5, -30, 1500); 
+    chassis.turnToHeading(180, 1000); 
+    chassis.moveToPoint(26, -80, 1500, {}, false);  // far second mogo
+    pros::delay(600); 
+    chassis.moveToPoint(15, -63, 1500, {.forwards=false}); 
+    chassis.turnToHeading(225, 1000, {},false);
+    LadyBrown.setState(1);
+    chassis.moveToPoint(5.5, -69, 1500, {}, false); //move to wall stake 1
+    chassis.turnToHeading(225, 1000, {});
+    pros::delay(1000);
     LadyBrown.setState(5);
     pros::delay(1500);
     Intake.in(false, false, 0);
-    chassis.moveToPoint(-3, -17, 1500, {.forwards=false}, false);
-    MogoMech.clamp();
-    chassis.turnToHeading(137, 1000);
-    chassis.moveToPoint(8, -30, 1500);
-    chassis.turnToHeading(170, 1000);
-    chassis.moveToPoint(29, -80, 1500);
-    chassis.moveToPoint(12, -16, 1500);
-    chassis.turnToHeading(224, 1000);
-    LadyBrown.setState(1);
-    chassis.moveToPoint(3, -70, 1500);
-    pros::delay(300);
-    Intake.stop();
-    pros::delay(300);
-    LadyBrown.setState(5);
-    pros::delay(2000);
-    LadyBrown.setState(4);
-    Intake.in(false, false, 0);
-    chassis.moveToPoint(13, -60, 1500, {.forwards=false});
+    chassis.moveToPoint(7, -60, 1500, {.forwards=false});
+    LadyBrown.setState(0);
     chassis.turnToHeading(320, 1000);
-    chassis.moveToPoint(-20, -26, 4000, {.maxSpeed=70});
-    chassis.turnToHeading(195, 1000);
-    chassis.moveToPoint(-29, -33, 1500);
+    chassis.moveToPoint(-22, -26, 2000, {.maxSpeed=75, .earlyExitRange=30}); 
+    chassis.moveToPoint(-23, -25, 1500, {.maxSpeed=50}); //three rings
+    chassis.turnToHeading(185, 1000);
+    chassis.moveToPoint(-27, -37, 1500);
     chassis.turnToHeading(93, 1000);
     chassis.moveToPoint(-37.25, -33.75, 1500, {.forwards=false});
     pros::delay(300);
