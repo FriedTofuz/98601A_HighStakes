@@ -22,6 +22,7 @@ void initialize() {
     Intake.allowed = true;
     LadyBrown.currState = 0;
     Master.clear();
+    Intake.discard = true;
 
 
     //Lambda functions (background functions)
@@ -109,6 +110,7 @@ void initialize() {
 
 void autonomous() {
     Intake.setIntakeSpeed(127);
+    Intake.discard = true;
     leftMotors.set_brake_mode_all(pros::MotorBrake::coast);
     rightMotors.set_brake_mode_all(pros::MotorBrake::coast);
     Intake.jam = true;
@@ -118,6 +120,7 @@ void autonomous() {
 
 void opcontrol() {
     Intake.jam = true;
+    Intake.discard = true;
 
     Intake.setIntakeSpeed(127);
     leftMotors.set_brake_mode_all(pros::MotorBrake::coast);

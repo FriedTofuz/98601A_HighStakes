@@ -112,6 +112,10 @@ bool Intake::discardRing() {
 
     // return false; // TEMPORARILY DISABLED
 
+    if (!discard) {
+        return false;
+    }
+
     if (ringColorSensor.get_proximity() < 180) {
         return false;
     }

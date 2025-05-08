@@ -14,6 +14,7 @@ class Intake {
         void stop();
         void setIntakeSpeed(int voltage);
         bool discardRing();
+        bool discard;
         bool discarding;
         std::string getColor();
         bool allowed;
