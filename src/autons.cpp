@@ -235,11 +235,11 @@ void ringSideRedAWP() {
     Intake.discard = false;
     chassis.setPose(-12.5, -12,-180);
     LadyBrown.setState(1);
-    chassis.turnToHeading(-230,400, {}, false);
     Intake.in(false, false, 0);
     MogoMech.release();
-    chassis.moveToPoint(-6.5, -16, 1000, {.minSpeed = 110}, false);
+    chassis.moveToPoint(-6.25, -17.25, 1000, {}, false);
     Intake.stop();
+    chassis.turnToHeading(-225,400, {});
     LadyBrown.setState(4);
     pros::delay(800); 
     chassis.moveToPoint(-19, 21, 1500, {.forwards=false, .maxSpeed=75}, false); //move to mogo
@@ -248,9 +248,8 @@ void ringSideRedAWP() {
     pros::delay(200);
     chassis.turnToPoint(-28, 31, 800, {.earlyExitRange=30});
     Intake.in(false, false, 0);
-    chassis.moveToPoint(-28.5, 32, 2000); // eat first ring
-    pros::delay(500);
-    chassis.moveToPoint(-47, 33.5, 2000);
+    chassis.moveToPoint(-28.5, 32.6, 2000); // eat first ring
+    chassis.moveToPoint(-48, 34.5, 2000, {.maxSpeed=50});
     chassis.moveToPoint(-21.5,21,1300,{.forwards = false}, false);
     chassis.moveToPoint(-40,15.75,2000, {}, false); //eat ring (by itself in middle)
     chassis.moveToPoint(-5,-7,2000, {}, false);
@@ -263,22 +262,23 @@ void ringSideRedAWP() {
     pros::delay(300);
     Intake.in(false, false, 0);
     chassis.turnToPoint(58.5, 14, 500, {.earlyExitRange=20});
-    chassis.moveToPoint(50,14,2000,{}, false);
-    chassis.moveToPoint(35, 31,2000, {.minSpeed=127}, false);
+    chassis.moveToPoint(52,14,2000,{}, false);
+    chassis.moveToPoint(43, 28,2000, {.minSpeed=127});
     Intake.in(false, true, 0);
+    pros::delay(500);
     LadyBrown.setState(3);
 }
 
-//DONE solo wp 12pts
+//DONE, solo wp 12pts
 void goalSideRedAWP() {
     Intake.discard = false;
     chassis.setPose(-12.5, -12,-180);
     LadyBrown.setState(1);
-    chassis.turnToHeading(-230,400, {}, false);
     Intake.in(false, false, 0);
     MogoMech.release();
-    chassis.moveToPoint(-6.5, -16, 1000, {.minSpeed = 110}, false);
+    chassis.moveToPoint(-6.25, -17.25, 1000, {}, false);
     Intake.stop();
+    chassis.turnToHeading(-225,400, {});
     LadyBrown.setState(4);
     pros::delay(800); 
     chassis.moveToPoint(-19, 21, 1500, {.forwards=false, .maxSpeed=75}, false); //move to mogo
@@ -287,9 +287,8 @@ void goalSideRedAWP() {
     pros::delay(200);
     chassis.turnToPoint(-28, 31, 800, {.earlyExitRange=30});
     Intake.in(false, false, 0);
-    chassis.moveToPoint(-28.5, 32, 2000); // eat first ring
-    pros::delay(500);
-    chassis.moveToPoint(-47, 33.5, 2000);
+    chassis.moveToPoint(-28.5, 32.6, 2000); // eat first ring
+    chassis.moveToPoint(-48, 34.5, 2000, {.maxSpeed=50});
     chassis.moveToPoint(-21.5,21,1300,{.forwards = false}, false);
     chassis.moveToPoint(-40,15.75,2000, {}, false); //eat ring (by itself in middle)
     chassis.moveToPoint(-5,-7,2000, {}, false);
@@ -302,12 +301,12 @@ void goalSideRedAWP() {
     pros::delay(300);
     Intake.in(false, false, 0);
     chassis.turnToPoint(58.5, 14, 500, {.earlyExitRange=20});
-    chassis.moveToPoint(50,14,2000,{}, false);
-    chassis.moveToPoint(35, 31,2000, {.minSpeed=127}, false);
+    chassis.moveToPoint(52,14,2000,{}, false);
+    chassis.moveToPoint(43, 28,2000, {.minSpeed=127});
     Intake.in(false, true, 0);
+    pros::delay(500);
     LadyBrown.setState(3);
 }
-
 
 
 void skills() {
