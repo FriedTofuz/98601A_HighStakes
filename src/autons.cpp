@@ -209,9 +209,8 @@ void goalSideBlueAWP() {
     pros::delay(200);
     chassis.turnToPoint(38, 27, 1000, {.earlyExitRange=30});
     Intake.in(false, false, 0);
-    chassis.moveToPoint(37.5, 27.5, 2000); // eat first ring
-    pros::delay(500);
-    chassis.moveToPoint(45.5, 29, 2000);
+    chassis.moveToPoint(37, 27.5, 2000); // eat first ring
+    chassis.moveToPoint(45.5, 28.75, 2000, {.maxSpeed=60});
     chassis.moveToPoint(21.5,21,1300,{.forwards = false}, false);
     chassis.moveToPoint(40,15.75,2000, {}, false); //eat ring (by itself in middle)
     chassis.moveToPoint(7,0,2000, {}, false);
