@@ -22,6 +22,15 @@ void mogoControl() {
 
 // Intake Controls
 void intakeControl() {
+    if (Master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) {
+        if (Intake.discard) {
+            Intake.discard = false;
+        } else {
+            Intake.discard = true;
+        }
+    }
+
+
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
         if (Intake.allowed) {
             Intake.in(false, false, 0);

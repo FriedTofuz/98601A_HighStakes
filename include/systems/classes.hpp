@@ -10,7 +10,7 @@ class Intake {
     public:
         Intake(pros::Motor stageOneMotor, pros::Motor stageTwoMotor, pros::Optical ringColorSensor);
         void in(bool stageOneOnly, bool stageTwoOnly, int timer);
-        void out();
+        void out(bool stageOneOnly = false, bool stageTwoOnly = false);
         void stop();
         void setIntakeSpeed(int voltage);
         bool discardRing();
