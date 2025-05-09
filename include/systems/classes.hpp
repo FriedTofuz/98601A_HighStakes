@@ -67,7 +67,7 @@ class LadyBrown {
         void liftControl();
         void setState(int State);
         static int currState;
-        int states[6] = {0, 270, 1000, 1800, 2300, 2750};
+        int states[6] = {0, 270, 1000, 1800, 2400, 2750};
         bool resetting;
         bool goNext = false;
         bool moving = false;

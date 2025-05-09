@@ -34,8 +34,7 @@ void ringSideBlue() {
     chassis.moveToPoint(52, -20, 1000);
     chassis.swingToHeading(150, lemlib::DriveSide::LEFT, 500);
     chassis.swingToHeading(135, lemlib::DriveSide::LEFT, 500);
-    // chassis.moveToPoint(-40, -4, 1000, {.forwards=false});
-    // chassis.moveToPoint(-48, -13, 1000);
+
 
 }
 
@@ -189,7 +188,7 @@ void ringSideBlueAWP() {
     LadyBrown.setState(3);
 }
 
-//DONE Solo wp 12pts
+//changed Solo wp 12pts
 void goalSideBlueAWP() { 
     Intake.discard = false;
     chassis.setPose(12.5, -12,180);
@@ -200,8 +199,8 @@ void goalSideBlueAWP() {
     chassis.moveToPoint(7.25, -12.25, 800, {.minSpeed = 110}, false);
     Intake.stop();
     LadyBrown.setState(4);
-    pros::delay(800); 
     chassis.turnToHeading(235, 300);
+    pros::delay(500);
     chassis.moveToPoint(20, 21, 2000, {.forwards=false, .maxSpeed=80}, false); //move to mogo
     LadyBrown.setState(0);
     MogoMech.clamp();
