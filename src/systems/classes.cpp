@@ -38,7 +38,7 @@ void Intake::intakeTaskFn(void* param) {
         } else {
 
             if (!self->allowed) {
-                self->stageTwoMotor.move(0);
+                // self->stageTwoMotor.move(0);
             } else {
                 self->stageOneMotor.move(0);
                 self->stageTwoMotor.move(0);
@@ -46,12 +46,13 @@ void Intake::intakeTaskFn(void* param) {
         }
         
         if (self->jam && self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1 && self->stageTwo == false) {
-            pros::delay(50);
+            pros::delay(100);
             if (self->jam && self->intakeRunning && self->stageTwoMotor.get_actual_velocity() < 5 && self->discarding == false && LadyBrown.currState != 1 && self->stageTwo == false) {
                 self->intakeRunning = false;
                 self->stageTwoMotor.move(-127);
                 pros::delay(200);
                 self->intakeRunning = true;
+                std::cout << "JAM" << std::endl;
             }
         }
         pros::delay(10);
@@ -82,7 +83,9 @@ void Intake::in(bool stageOneOnly, bool stageTwoOnly, int timer) {
     //     stageTwoMotor.move(intakeSpeed);
     // }
     // pros::delay(10);
-    intakeSpeed = 127;
+    if (allowed) {
+        intakeSpeed = 127;
+    }
     stageOne = stageOneOnly;
     stageTwo = stageTwoOnly;
     intakeRunning = true; 
@@ -97,7 +100,9 @@ void Intake::out() {
     // stageOneMotor.move(-intakeSpeed);
     // stageTwoMotor.move(-intakeSpeed);
     
-    intakeSpeed = -127;
+    if (allowed) {
+        intakeSpeed = -127;
+    }
     intakeRunning = true;
 }
 void Intake::setIntakeSpeed(int voltage) {
