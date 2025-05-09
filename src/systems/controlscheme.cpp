@@ -23,11 +23,15 @@ void mogoControl() {
 // Intake Controls
 void intakeControl() {
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-        Intake.in(false, false, 0);
+        if (Intake.allowed) {
+            Intake.in(false, false, 0);
+        }
         currInput = "In";
     } else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+        if (Intake.allowed) {
+            Intake.out();
+        }
         currInput = "Out";
-        Intake.out();
     } else {
         Intake.stop();
     }
@@ -108,8 +112,6 @@ void ladybrownControl() {
     if (Master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
         pros::Task ladybrownTask(resetLadyBrownTask);
     }
-
-    std::cout << ladybrownMotor.get_position() << " " << LadyBrown.currState << std::endl;
 
     pros::delay(10);
 }

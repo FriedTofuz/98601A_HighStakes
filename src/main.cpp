@@ -37,20 +37,17 @@ void initialize() {
 
             if (Intake.discardRing() && LadyBrown.currState != 1) {
                 if (!Intake.discarding) {
-
-                    old = stageTwoMotor.get_position();
-                    delay = 1; 
                     Intake.discarding = true;
                 }
             }
 
             if (Intake.discarding) {
-                if (stageTwoMotor.get_position() - old > delay) {
-                    Intake.allowed = false;
-                    pros::delay(30);
-                    Intake.allowed = true;
-                    Intake.discarding = false;
-                }
+                std::cout << "Discarding" << std::endl;
+                Intake.allowed = false;
+                stageTwoMotor.move(-127);
+                pros::delay(1100);
+                Intake.allowed = true;
+                Intake.discarding = false; 
             }
 
             int overheat_count = 0;
