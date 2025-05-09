@@ -96,9 +96,12 @@ void Intake::in(bool stageOneOnly, bool stageTwoOnly, int timer) {
     
 }
 
-void Intake::out() {
+void Intake::out(bool stageOneOnly, bool stageTwoOnly) {
     // stageOneMotor.move(-intakeSpeed);
     // stageTwoMotor.move(-intakeSpeed);
+
+    stageOne = stageOneOnly;
+    stageTwo = stageTwoOnly;
     
     if (allowed) {
         intakeSpeed = -127;

@@ -47,6 +47,7 @@ void initialize() {
             if (Intake.discarding) {
                 std::cout << "Discarding" << std::endl;
                 Intake.allowed = false;
+                stageOneMotor.move(127);
                 stageTwoMotor.move(-127);
                 pros::delay(1100);
                 Intake.allowed = true;
