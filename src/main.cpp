@@ -34,9 +34,11 @@ void initialize() {
             LadyBrown.liftControl();
             // Intake.intakeControl();
 
+            std::cout << Intake.discard << std::endl;
+
             pros::delay(10);
 
-            if (Intake.discardRing() && LadyBrown.currState != 1) {
+            if (Intake.discardRing() && LadyBrown.currState != 1 && Intake.discard) {
                 if (!Intake.discarding) {
                     Intake.discarding = true;
                 }
