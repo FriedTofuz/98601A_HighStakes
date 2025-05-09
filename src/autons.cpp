@@ -190,15 +190,17 @@ void ringSideBlueAWP() {
     LadyBrown.setState(3);
 }
 
-//DONE Solo wp 12pts
+//changed Solo wp 12pts
 void goalSideBlueAWP() { 
     Intake.discard = false;
     chassis.setPose(12.5, -12,180);
+    MogoMech.release();
     LadyBrown.setState(1);
+    
     chassis.turnToHeading(228,300, {}, false);
     Intake.in(false, false, 0);
-    MogoMech.release();
     chassis.moveToPoint(7.25, -12.25, 800, {.minSpeed = 110}, false);
+
     Intake.stop();
     LadyBrown.setState(4);
     pros::delay(800); 
@@ -209,9 +211,8 @@ void goalSideBlueAWP() {
     pros::delay(200);
     chassis.turnToPoint(38, 27, 1000, {.earlyExitRange=30});
     Intake.in(false, false, 0);
-    chassis.moveToPoint(37.5, 27.5, 2000); // eat first ring
-    pros::delay(500);
-    chassis.moveToPoint(45.5, 29, 2000);
+    chassis.moveToPoint(37, 27.5, 2000); // eat first ring
+    chassis.moveToPoint(45.5, 28.75, 2000, {.maxSpeed=60});
     chassis.moveToPoint(21.5,21,1300,{.forwards = false}, false);
     chassis.moveToPoint(40,15.75,2000, {}, false); //eat ring (by itself in middle)
     chassis.moveToPoint(7,0,2000, {}, false);
@@ -230,7 +231,7 @@ void goalSideBlueAWP() {
     LadyBrown.setState(3);
 }
 
-//DONE, solo wp 12pts
+//DONE (og), solo wp 12pts
 void ringSideRedAWP() { 
     Intake.discard = false;
     chassis.setPose(-12.5, -12,-180);
@@ -269,7 +270,7 @@ void ringSideRedAWP() {
     LadyBrown.setState(3);
 }
 
-//DONE, solo wp 12pts
+//changed, solo wp 12pts
 void goalSideRedAWP() {
     Intake.discard = false;
     chassis.setPose(-12.5, -12,-180);
@@ -289,7 +290,7 @@ void goalSideRedAWP() {
     Intake.in(false, false, 0);
     chassis.moveToPoint(-28.5, 32.6, 2000); // eat first ring
     chassis.moveToPoint(-48, 34.5, 2000, {.maxSpeed=50});
-    chassis.moveToPoint(-21.5,21,1300,{.forwards = false}, false);
+    // chassis.moveToPoint(-21.5,21,1300,{.forwards = false}, false);
     chassis.moveToPoint(-40,15.75,2000, {}, false); //eat ring (by itself in middle)
     chassis.moveToPoint(-5,-7,2000, {}, false);
     MogoMech.release();
@@ -302,7 +303,7 @@ void goalSideRedAWP() {
     Intake.in(false, false, 0);
     chassis.turnToPoint(58.5, 14, 500, {.earlyExitRange=20});
     chassis.moveToPoint(52,14,2000,{}, false);
-    chassis.moveToPoint(43, 28,2000, {.minSpeed=127});
+    chassis.moveToPoint(43, 24,2000, {.minSpeed=127});
     Intake.in(false, true, 0);
     pros::delay(500);
     LadyBrown.setState(3);
