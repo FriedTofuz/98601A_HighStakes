@@ -184,6 +184,7 @@ void ringSideBlueAWP() {
     pros::delay(300);
     Intake.in(false, false, 0);
     chassis.moveToPoint(-48,18,2000,{}, false);
+    pros::delay(400);
     chassis.moveToPoint(-28, 21,2000, {.minSpeed=127});
     Intake.in(false, true, 0);
     pros::delay(600);
@@ -225,6 +226,7 @@ void goalSideBlueAWP() {
     pros::delay(300);
     Intake.in(false, false, 0);
     chassis.moveToPoint(-48,18,2000,{}, false);
+    pros::delay(400);
     chassis.moveToPoint(-28, 21,2000, {.minSpeed=127});
     Intake.in(false, true, 0);
     pros::delay(600);
