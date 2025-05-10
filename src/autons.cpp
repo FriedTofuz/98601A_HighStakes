@@ -166,6 +166,7 @@ void ringSideBlueAWP() {
     LadyBrown.setState(0);
     MogoMech.clamp();
     pros::delay(200);
+    Intake.discard=true;
     chassis.turnToPoint(38, 27, 1000, {.earlyExitRange=30});
     Intake.in(false, false, 0);
     chassis.moveToPoint(37, 27.5, 2000); // eat first ring
@@ -173,9 +174,11 @@ void ringSideBlueAWP() {
     chassis.moveToPoint(40,15.75,2000, {}, false); //eat ring (by itself in middle)
     chassis.moveToPoint(7,0,2000, {}, false);
     MogoMech.release();
+    Intake.discard=false;
     Intake.in(false, false, 0);
     chassis.moveToPoint(-23,-10,1000, {}, false);
     Intake.in(true, false, 0);
+    pros::delay(500);
     chassis.moveToPoint(-31,21,1500, {.forwards=false, .maxSpeed=75}, false);
     MogoMech.clamp();
     pros::delay(300);
@@ -183,7 +186,7 @@ void ringSideBlueAWP() {
     chassis.moveToPoint(-48,18,2000,{}, false);
     chassis.moveToPoint(-28, 21,2000, {.minSpeed=127});
     Intake.in(false, true, 0);
-    pros::delay(750);
+    pros::delay(600);
     LadyBrown.setState(3);
 }
 
@@ -204,6 +207,7 @@ void goalSideBlueAWP() {
     LadyBrown.setState(0);
     MogoMech.clamp();
     pros::delay(200);
+    Intake.discard=true;
     chassis.turnToPoint(38, 27, 1000, {.earlyExitRange=30});
     Intake.in(false, false, 0);
     chassis.moveToPoint(37, 27.5, 2000); // eat first ring
@@ -211,9 +215,11 @@ void goalSideBlueAWP() {
     chassis.moveToPoint(40,15.75,2000, {}, false); //eat ring (by itself in middle)
     chassis.moveToPoint(7,0,2000, {}, false);
     MogoMech.release();
+    Intake.discard=false;
     Intake.in(false, false, 0);
     chassis.moveToPoint(-23,-10,1000, {}, false);
     Intake.in(true, false, 0);
+    pros::delay(500);
     chassis.moveToPoint(-31,21,1500, {.forwards=false, .maxSpeed=75}, false);
     MogoMech.clamp();
     pros::delay(300);
@@ -221,7 +227,7 @@ void goalSideBlueAWP() {
     chassis.moveToPoint(-48,18,2000,{}, false);
     chassis.moveToPoint(-28, 21,2000, {.minSpeed=127});
     Intake.in(false, true, 0);
-    pros::delay(750);
+    pros::delay(600);
     LadyBrown.setState(3);
 }
 
