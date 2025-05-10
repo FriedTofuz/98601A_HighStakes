@@ -258,7 +258,8 @@ void ringSideRedAWP() {
     pros::delay(800);
     MogoMech.release();
     Intake.in(false, false, 0);
-    chassis.moveToPoint(22.5,-11,1000, {}, false);
+    chassis.moveToPoint(24,-11,1000, {}, false);
+    pros::delay(200);
     Intake.in(true, false, 0);
     chassis.moveToPoint(31,21,2000, {.forwards=false, .maxSpeed=75}, false);
     MogoMech.clamp();
@@ -297,7 +298,8 @@ void goalSideRedAWP() {
     pros::delay(800);
     MogoMech.release();
     Intake.in(false, false, 0);
-    chassis.moveToPoint(22.5,-11,1000, {}, false);
+    chassis.moveToPoint(24,-11,1000, {}, false);
+    pros::delay(200);
     Intake.in(true, false, 0);
     chassis.moveToPoint(31,21,2000, {.forwards=false, .maxSpeed=75}, false);
     MogoMech.clamp();
