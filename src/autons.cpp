@@ -118,38 +118,41 @@ void goalSideRed() {
     MogoMech.release();
     Intake.setIntakeSpeed(127);
     Intake.in(true, false, 0);
-    chassis.moveToPoint(0, 35, 800, {.minSpeed=110},false);
-    chassis.turnToHeading(46, 500);
+    chassis.moveToPoint(0, 35, 800, {.minSpeed=115, .earlyExitRange=3}, false);
     MogoArm.down();
-    Intake.jam=true;
-    chassis.moveToPoint(-10, 18, 3000, {.forwards=false}, false);
+    // chassis.turnToHeading(46, 500);
+    chassis.moveToPoint(-10, 18, 20000, {.forwards=false, .minSpeed=70}, false);
     MogoArm.up();
     pros::delay(400);
+    Intake.jam=true;
     chassis.moveToPoint(-28, 45, 2000, {.forwards=false, .maxSpeed=80}, false);
     MogoMech.clamp();
     pros::delay(200);
-    chassis.turnToHeading(90, 700, {});
-    Intake.in(false, false, 350);
-    pros::delay(500);
+    chassis.turnToHeading(50, 700, {.direction=lemlib::AngularDirection::CCW_COUNTERCLOCKWISE});
+    Intake.in(false, false, 500);
+    pros::delay(700);
     MogoMech.release();
     chassis.moveToPoint(11, 36, 2000, {.forwards=false, .maxSpeed=70}, false); //second mogo
     MogoMech.clamp();
-    pros::delay(300);
+    pros::delay(1000);
+    chassis.turnToHeading(-180, 1000, {.direction=lemlib::AngularDirection::CCW_COUNTERCLOCKWISE});
+    pros::delay(1500);
     Intake.in(false, false, 0);
-    chassis.moveToPoint(-8, 7, 1500);
-    chassis.turnToHeading(-210, 400);
-    chassis.moveToPoint(-6.6, -8, 1000, {.maxSpeed=60});
-    chassis.moveToPoint(-10, 11, 1500, {.forwards=false, .maxSpeed=70});
-    LadyBrown.setState(1);
-    Intake.in(false, false, 0);
-    pros::delay(700);
-    chassis.turnToHeading(23, 1000);
-    chassis.moveToPoint(18.5, 36.75, 2000);
-    chassis.turnToHeading(-290, 500);
-    LadyBrown.setState(3);
+
+    // chassis.moveToPoint(-8, 7, 1500);
+    // chassis.turnToHeading(-210, 400);
+    // chassis.moveToPoint(-6.6, -8, 1000, {.maxSpeed=60});
+    // chassis.moveToPoint(-10, 11, 1500, {.forwards=false, .maxSpeed=70});
+    // LadyBrown.setState(1);
+    // Intake.in(false, false, 0);
+    // pros::delay(700);
+    // chassis.turnToHeading(23, 1000);
+    // chassis.moveToPoint(18.5, 36.75, 2000);
+    // chassis.turnToHeading(-290, 500);
+    // LadyBrown.setState(3);
 }
 
-//DONE, solo wp 12pts
+//---------------------------------------no more
 void ringSideBlueAWP() { 
     Intake.discard = false;
     chassis.setPose(12.5, -12,180);
@@ -191,7 +194,7 @@ void ringSideBlueAWP() {
     LadyBrown.setState(3);
 }
 
-//DONE Solo wp 12pts
+//---------------------------------------no more
 void goalSideBlueAWP() { 
     Intake.discard = false;
     chassis.setPose(12.5, -12,180);
